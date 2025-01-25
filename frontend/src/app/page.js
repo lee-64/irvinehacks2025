@@ -1,9 +1,37 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
-  return (
+  const [scrollAmount, setScrollAmount] = useState(0);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    console.log("scrolling", window.scrollY, window.innerHeight / 2);
+    setScrollAmount(window.scrollY);
+  };
+
+  function opacity(scrollAmt){
+    if (scrollAmt < window.innerHeight / 2){
+      return 0;
+    }
+    else if (scrollAmt < window.innerHeight){
+      return (scrollAmt - window.innerHeight / 2) / (window.innerHeight / 2);
+    }
+    else{
+      return 1;
+    }
+  }
+
+  return (
     <div className="sm:p-10">
+      {scrollAmount}
       <div className="h-20 row-start-1 items-center">
         <img src="/zipscopeimage.png" className="h-full" />
       </div>
@@ -26,7 +54,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-black text-white py-16 rounded-lg">
+      <div className="bg-black text-white py-16 rounded-lg" style={{
+        opacity: opacity(scrollAmount)
+      }}>
       <div className="max-w-6xl mx-auto text-center">
         <h1 className="text-4xl font-bold">
           Graded on These Metrics
@@ -79,7 +109,8 @@ export default function Home() {
     <div className="h-screen bg-[#004aad] rounded-lg">
     </div>
     </div>
-
+  );
+}
     
     /* <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -176,6 +207,3 @@ export default function Home() {
         </a>
       </footer>
     </div> */
-
-  );
-}
