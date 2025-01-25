@@ -8,26 +8,23 @@ export default function Home() {
         <img src="/zipscopeimage.png" className="h-full" />
       </div>
 
-      <main className="flex flex-row">
-        <div className="flex flex-row">
-          <div className="basis-1/2 text-center sm:p-10">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-snug">
-              Looking for your <br />
-              next adventure or <br />
-              place to call home?
-            </h1>
-            <a href="#" className="text-blue-600 text-lg font-semibold mt-4 inline-block">Explore ZipScope</a>
-            <p class="text-gray-600 mt-4">
-              Providing travelers and new home seekers insight into the best neighborhoods and cities to visit. We provide a 
-              comprehensive summary of the best places to visit and live in the United States.
-            </p>
-          </div>
-          <div className="basis-1/2 text-center flex justify-center items-center w-full">
-            <div className="h-64 w-64 rounded-lg bg-[#004aad]" />
-          </div>
+      <div className="h-screen flex items-center flex-row">
+        <div className="basis-1/2 text-center sm:p-10">
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-snug">
+            Looking for your <br />
+            next adventure or <br />
+            place to call home?
+          </h1>
+          <p className="text-blue-600 text-lg font-semibold mt-4 inline-block">Explore ZipScope</p>
+          <p className="text-gray-600 mt-4">
+            Providing travelers and new home seekers insight into the best neighborhoods and cities to visit. We provide a 
+            comprehensive summary of the best places to visit and live in the United States.
+          </p>
         </div>
-
-      </main>
+        <div className="basis-1/2 text-center flex justify-center items-center w-full">
+          <div className="h-64 w-64 rounded-lg bg-[#004aad]" />
+        </div>
+      </div>
 
       <div className="bg-black text-white py-16 rounded-lg">
       <div className="max-w-6xl mx-auto text-center">
@@ -53,7 +50,7 @@ export default function Home() {
               Access to transaction <br /> detail in a second
             </h2>
             <img
-              src=""
+              src="null"
               alt="Transaction Details"
               className="w-32 h-32"
             />
@@ -78,6 +75,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+    </div>
+    <div className="h-screen bg-[#004aad] rounded-lg">
     </div>
     </div>
 
