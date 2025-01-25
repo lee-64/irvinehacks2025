@@ -133,8 +133,8 @@ def convert_numpy(obj):
 
 
 def get_safety_metrics(city):
-    offenses = pd.read_csv('../data/ca_offenses_by_city.csv')
-    law_enforcement = pd.read_csv('../data/ca_law_enforcement_by_city.csv')
+    offenses = pd.read_csv('./data/ca_offenses_by_city.csv')
+    law_enforcement = pd.read_csv('./data/ca_law_enforcement_by_city.csv')
     city = city.title()
     try:
         row_off = offenses[offenses['City'] == city].to_dict('records')[0]
@@ -152,7 +152,7 @@ def get_safety_metrics(city):
 
 if __name__ == "__main__":
     # TODO default address when page initially loads is Lebron's address
-    df = pd.read_csv('../data/ZipData.csv')
+    df = pd.read_csv('./data/ZipData.csv')
     query = "3651 trousdale"
     match_data = find_zipcode_match(query, df)
     # print(match_data)
