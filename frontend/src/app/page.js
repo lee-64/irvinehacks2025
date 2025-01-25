@@ -31,7 +31,6 @@ export default function Home() {
 
   return (
     <div className="sm:p-10">
-      {scrollAmount}
       <div className="h-20 row-start-1 items-center">
         <img src="/zipscopeimage.png" className="h-full" />
       </div>
@@ -54,7 +53,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-black text-white py-16 rounded-lg" style={{
+      <div className="py-16 rounded-lg" style={{
         opacity: opacity(scrollAmount)
       }}>
       <div className="max-w-6xl mx-auto text-center">
@@ -63,7 +62,7 @@ export default function Home() {
         </h1>
         <div className="grid md:grid-cols-3 gap-8 mt-12">
           {/* Safety */}
-          <div className="bg-white text-black rounded-2xl shadow-lg p-6 flex flex-col items-center">
+          <div className="bg-[#6495ED] text-black rounded-2xl shadow-lg p-6 flex flex-col items-center">
             <h2 className="font-semibold text-lg mb-4">
               Crime Rates <br /> and Safety
             </h2>
@@ -75,7 +74,7 @@ export default function Home() {
           </div>
 
           {/* Transaction Details Section */}
-          <div className="bg-white text-black rounded-2xl shadow-lg p-6 flex flex-col items-center">
+          <div className="bg-[#6495ED] text-black rounded-2xl shadow-lg p-6 flex flex-col items-center">
             <h2 className="font-semibold text-lg mb-4">
               Access to transaction <br /> detail in a second
             </h2>
@@ -90,7 +89,7 @@ export default function Home() {
           </div>
 
           {/* Card Spend Section */}
-          <div className="bg-white text-black rounded-2xl shadow-lg p-6 flex flex-col items-center">
+          <div className="bg-[#6495ED] text-black rounded-2xl shadow-lg p-6 flex flex-col items-center">
             <h2 className="font-semibold text-lg mb-4">
               Control card spend, <br /> before it happens.
             </h2>
@@ -106,13 +105,16 @@ export default function Home() {
         </div>
       </div>
     </div>
-    <div className="h-screen bg-[#004aad] rounded-lg">
+    <div className="h-screen rounded-lg sm:p-20">
+      <div className="h-screen rounded-lg w-full bg-[#D6DBDF] sm:p-10">
+        <input type="text" placeholder="Search.." />
+      </div>
     </div>
-    </div>
+  </div>
   );
 }
     
-    /* <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+   {/* <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -206,4 +208,4 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-    </div> */
+    </div> */}
