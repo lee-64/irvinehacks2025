@@ -8,30 +8,38 @@ export default function CompareLocations() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
+  const isValidZip = (zip) => /^\d{5}$/.test(zip.trim()); // Validate 5-digit ZIP codes
+
   const handleCompare = async () => {
     setError(null); // Reset error
-    if (!zip1 || !zip2) {
-      setError('Please enter both ZIP codes.');
+    setResult(null);
+
+    const sanitizedZip1 = zip1.trim().slice(0, 5);
+    const sanitizedZip2 = zip2.trim().slice(0, 5);
+
+    if (!isValidZip(sanitizedZip1) || !isValidZip(sanitizedZip2)) {
+      setError('Please enter valid 5-digit ZIP codes.');
       return;
     }
 
     try {
       const response = await fetch('/api/compare_zipcodes', {
         method: 'POST',
-        body: JSON.stringify({ zip1, zip2 }),
+        body: JSON.stringify({ zip1: sanitizedZip1, zip2: sanitizedZip2 }),
         headers: { 'Content-Type': 'application/json' },
       });
 
+      const data = await response.json();
+      console.log('API Response:', data); // Debugging
+
       if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.error || 'Failed to fetch location scores. Please try again.');
+        setError(data.error || 'An error occurred.');
         return;
       }
 
-      const data = await response.json();
       setResult(data);
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError('An error occurred while fetching data.');
     }
   };
 
@@ -69,8 +77,13 @@ export default function CompareLocations() {
       {result && (
         <div className="mt-10 text-center">
           <h2 className="text-2xl font-bold">Comparison Results</h2>
-          <p className="mt-4">ZIP Code {zip1}: {result.zip1Score}/10</p>
-          <p className="mt-2">ZIP Code {zip2}: {result.zip2Score}/10</p>
+          <p className="mt-4">
+            ZIP Code {result.zip1.zip}: {result.zip1.score}/10
+          </p>
+          <p className="mt-2">
+            ZIP Code {result.zip2.zip}: {result.zip2.score}/10
+          </p>
+          <p className="mt-4 font-semibold">{result.comparison}</p>
         </div>
       )}
     </div>
