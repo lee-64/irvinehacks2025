@@ -186,7 +186,7 @@ export default function Home() {
           <p>{locData.explanation}</p>
         </div>
       </div>
-      <div class="column flex-1" style={{flex: '50%'}}>
+      <div className="column flex-1" style={{flex: '50%'}}>
         <div className="min-h-screen w-full">
           <InteractiveMap
               latitude={locData.lat}
