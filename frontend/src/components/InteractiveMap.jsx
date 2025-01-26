@@ -93,7 +93,7 @@ const InteractiveMap = ({
 
               return `
                 <div class="flex flex-col items-center p-2">
-                  <div>Zip Score</div>
+                  <div>ZipScore</div>
                   <svg width="60" height="60" viewBox="0 0 60 60">
                     <!-- Background circle -->
                     <circle
