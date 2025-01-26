@@ -52,7 +52,7 @@ export default function Home() {
   }
 
   const handleMapSearch = async (mapSearch) => {
-    setError(null);
+    setError(null); // Clear any previous errors
     if (!mapSearch?.trim()) {
       alert('Please enter a valid prompt.');
       return;
@@ -65,8 +65,12 @@ export default function Home() {
       const submitResponse = await fetch('/api/fetch_location_data', {
         method: 'POST',
         credentials: 'include',
-        body: JSON.stringify({ query: mapSearch }),
-        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: mapSearch
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
       if (!submitResponse.ok) {
@@ -82,6 +86,7 @@ export default function Home() {
       const submitData = await submitResponse.json();
       setLocData(submitData);
       setStatus("success");
+
     } catch (error) {
       setError("An error occurred while processing your request. Please try again.");
       setStatus("failed");
@@ -194,14 +199,16 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="min-h-screen" style={{ display: 'flex' }}>
-        <div className="min-h-screen" style={{ flex: '50%' }}>
-          <div className="min-h-screen w-full sm:mr-20">
-            <MapSearch
+    <div className="min-h-screen" style={{display: 'flex'}}>
+      <div className="min-h-screen" style={{flex: '50%'}}>
+        <div className="min-h-screen w-full sm:mr-20" style={{ marginRight: '90px' }}>
+          <MapSearch
               onSubmit={handleMapSearch}
-              placeholder="568 N Tigertail Rd, Los Angeles"
-            />
-            <ErrorAlert message={error} />
+              placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
+          />
+          <ErrorAlert
+              message={error}
+          />
 
           {status === "success" && !loading && (
               <div className="flex flex-col items-center justify-center gap-4 mt-8">
@@ -219,7 +226,7 @@ export default function Home() {
                     {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
                   </div>
                   <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
+                    {renderPieChart(locData.school_score, "Education", locData.school_score > 50)}
                   </div>
                 </div>
                 <div className="h-80" style={{display: 'flex'}}>
@@ -249,7 +256,7 @@ export default function Home() {
             const isMiddle = index === currentSet;
             const isLeft = (index === (currentSet - 1 + cards.length) % cards.length);
             const isRight = (index === (currentSet + 1) % cards.length);
-        
+
             return (
               <div
                 key={index}
