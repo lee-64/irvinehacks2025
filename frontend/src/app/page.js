@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react';
 import InteractiveMap from '@/components/InteractiveMap';
 import MapSearch from '@/components/MapSearch';
+import ErrorAlert from '@/components/ErrorAlert';
 
 export default function Home() {
   const [scrollAmount, setScrollAmount] = useState(0);
-  const [score, setScore] = useState(0);
+  const [locData, setLocData] = useState(0);
+  const [error, setError] = useState(null);
 
 
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function Home() {
   }
 
   const handleMapSearch = async (mapSearch) => {
+    setError(null); // Clear any previous errors
     if (!mapSearch?.trim()) {
         alert("Please enter a valid prompt.");
         return;
@@ -40,7 +43,7 @@ export default function Home() {
     console.log('searching:', mapSearch);
 
     try {
-      const submitResponse = await fetch('/api/fetch_score', {
+      const submitResponse = await fetch('/api/fetch_location_data', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify({
@@ -51,11 +54,24 @@ export default function Home() {
           'Content-Type': 'application/json'
         }
       });
+
+
+      if (!submitResponse.ok) {
+          const errorData = await submitResponse.json();
+          if (submitResponse.status === 400) {
+              setError("Address/location not found, please try again");
+          } else {
+              setError("An error occurred while processing your request. Please try again.");
+          }
+          return;
+      }
+
       const submitData = await submitResponse.json();
       console.log('Submit response:', submitData);
-      setScore(submitData);
+      setLocData(submitData);
     } catch (error) {
       console.error("Error processing the search query:", error);
+      setError("An error occurred while processing your request. Please try again.");
     }
   };
 
@@ -147,8 +163,13 @@ export default function Home() {
         onSubmit={handleMapSearch}
         placeholder="9955 Beverly Grove Dr."  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
       />
+      <ErrorAlert
+          message={error}
+      />
       <InteractiveMap
-        desirability={score}
+        latitude={locData.lat}
+        longitude={locData.lon}
+        desirability={locData.score}
       />
     </div>
   </div>
