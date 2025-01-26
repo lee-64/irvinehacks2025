@@ -161,10 +161,8 @@ const InteractiveMap = ({
   }, [latitude, longitude, desirability, isScriptLoaded]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-6xl w-full">
-        <div ref={mapRef} className="h-screen w-full rounded-lg shadow-lg"></div>
-      </div>
+    <div className="w-96 border-4">
+        <div ref={mapRef} className="h-96 rounded-lg shadow-lg"></div>
     </div>
   );
 };
