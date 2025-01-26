@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import InteractiveMap from '@/components/InteractiveMap';
 import MapSearch from '@/components/MapSearch';
 import ErrorAlert from '@/components/ErrorAlert';
+import {Cell, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 
 
 export default function Home() {
@@ -51,15 +52,14 @@ export default function Home() {
     }
 
     setLoading(true);
-    // setStatus(null);
+    setStatus(null);
 
     try {
       const submitResponse = await fetch('/api/fetch_location_data', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify({
-          query: mapSearch,
-          // config: configState
+          query: mapSearch
         }),
         headers: {
           'Content-Type': 'application/json'
@@ -79,10 +79,11 @@ export default function Home() {
 
       const submitData = await submitResponse.json();
       setLocData(submitData);
+      setStatus("success");
 
     } catch (error) {
       setError("An error occurred while processing your request. Please try again.");
-      // setStatus("failed");
+      setStatus("failed");
     } finally {
       setLoading(false);
     }
@@ -96,10 +97,46 @@ export default function Home() {
     if (currentSet > 0) setCurrentSet(currentSet - 1);
   };
 
+
+  const renderPieChart = (score, title, isHigher) => {
+    const data = [
+      { name: 'Score', value: score },
+      { name: 'Remaining', value: 100 - score },
+    ];
+
+    const COLORS = isHigher ? ['#4CAF50', '#E0E0E0'] : ['#F44336', '#E0E0E0'];
+
+    return (
+        <div className="flex flex-col items-center">
+          <h2 className={`text-xl font-bold ${isHigher ? 'text-green-600' : 'text-red-600'}`}>
+            {title}
+          </h2>
+          <ResponsiveContainer width={100} height={100}>
+            <PieChart>
+              <Pie
+                  data={data}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={25}
+                  outerRadius={40}
+                  paddingAngle={5}
+                  dataKey="value"
+              >
+                {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index]}/>
+                ))}
+              </Pie>
+              <Tooltip/>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+    );
+  };
+
   return (
-    <div className="sm:p-10">
-      {/* Add the Compare Locations button here */}
-      <div className="absolute top-4 right-4">
+      <div className="sm:p-10">
+        {/* Add the Compare Locations button here */}
+        <div className="absolute top-4 right-4">
         <Link href="/compare">
           <button className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow">
             Compare Locations
@@ -183,7 +220,17 @@ export default function Home() {
               message={error}
           />
 
-          <p>{locData.explanation}</p>
+          {status === "success" && !loading && (
+              <div className="grid grid-cols-2 grid-rows-3 gap-4 mx-auto">
+                <p className="col-span-2">{locData.explanation}</p>
+                {renderPieChart(locData.safety_score, "Safety", locData.safety_score > 50)}
+                {renderPieChart(locData.environmental_score, "Pollution", locData.environmental_score > 50)}
+                {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
+                {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
+                {renderPieChart(locData.walk_score, "Transportation", locData.walk_score > 50)}
+                {renderPieChart(locData.housing_score, "Housing", locData.housing_score > 50)}
+              </div>
+          )}
         </div>
       </div>
       <div className="column flex-1" style={{flex: '50%'}}>

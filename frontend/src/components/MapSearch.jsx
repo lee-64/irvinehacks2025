@@ -29,7 +29,7 @@ export default function MapSearch({onSubmit, placeholder}) {
                 id="userInput"
                 value={inputPrompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="transition-all border border-gray-200 rounded-xl p-3 pr-12 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-gray-300 text-sm"
+                className="w-full transition-all border border-gray-200 rounded-xl p-3 pr-12 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-gray-300 text-sm"
                 placeholder={placeholder}
                 required
             />
