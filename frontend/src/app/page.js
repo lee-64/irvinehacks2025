@@ -174,7 +174,7 @@ export default function Home() {
 
     <div className="min-h-screen" style={{display: 'flex'}}>
       <div className="min-h-screen" style={{flex: '50%'}}>
-        <div className="min-h-screen w-full border-yellow-300 border  sm:mr-20" style={{ marginRight: '90px' }}>
+        <div className="min-h-screen w-full sm:mr-20" style={{ marginRight: '90px' }}>
           <MapSearch
               onSubmit={handleMapSearch}
               placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
