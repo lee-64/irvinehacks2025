@@ -107,8 +107,28 @@ export async function POST(request) {
   const zip2Score = calculateScore(zip2Row);
 
   return NextResponse.json({
-    zip1: { zip: zip1, county: zip1Row[headerIndexes.county], score: zip1Score },
-    zip2: { zip: zip2, county: zip2Row[headerIndexes.county], score: zip2Score },
+    zip1: {
+      zip: zip1,
+      county: zip1Row[headerIndexes.county],
+      score: zip1Score,
+      metrics: {
+        pollution: 100 - (parseFloat(zip1Row[headerIndexes.pm25Pctl] || 0) + parseFloat(zip1Row[headerIndexes.dieselPctl] || 0)) / 2,
+        health: 100 - parseFloat(zip1Row[headerIndexes.asthmaPctl] || 0),
+        socioeconomic: 100 - (parseFloat(zip1Row[headerIndexes.povertyPctl] || 0) + parseFloat(zip1Row[headerIndexes.unemploymentPctl] || 0)) / 2,
+        accessibility: 100 - parseFloat(zip1Row[headerIndexes.trafficPctl] || 0),
+      },
+    },
+    zip2: {
+      zip: zip2,
+      county: zip2Row[headerIndexes.county],
+      score: zip2Score,
+      metrics: {
+        pollution: 100 - (parseFloat(zip2Row[headerIndexes.pm25Pctl] || 0) + parseFloat(zip2Row[headerIndexes.dieselPctl] || 0)) / 2,
+        health: 100 - parseFloat(zip2Row[headerIndexes.asthmaPctl] || 0),
+        socioeconomic: 100 - (parseFloat(zip2Row[headerIndexes.povertyPctl] || 0) + parseFloat(zip2Row[headerIndexes.unemploymentPctl] || 0)) / 2,
+        accessibility: 100 - parseFloat(zip2Row[headerIndexes.trafficPctl] || 0),
+      },
+    },
     comparison:
       zip1Score > zip2Score
         ? `${zip1} is rated higher with a score of ${zip1Score}/10`

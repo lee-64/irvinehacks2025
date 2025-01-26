@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -85,8 +86,26 @@ export default function CompareLocations() {
     );
   };
 
+  const renderMetrics = (metrics) => {
+    if (!metrics || Object.keys(metrics).length === 0) {
+      return <p className="text-gray-500">No metrics available.</p>;
+    }
+  
+    return (
+      <ul className="mt-4 text-left">
+        {Object.entries(metrics).map(([category, value]) => (
+          <li key={category} className="text-gray-700">
+            <strong>{category.charAt(0).toUpperCase() + category.slice(1)}:</strong> {Math.round(value)}/100
+          </li>
+        ))}
+      </ul>
+    );
+  };
   return (
     <div className="h-screen p-10">
+      <Link href="/" className="absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded-lg shadow">
+        Back
+      </Link>
       <h1 className="text-4xl font-bold text-center text-gray-900">Compare Locations</h1>
       <p className="text-center text-gray-600 mt-4">
         Compare various locations based on metrics like pollution, unemployment, and more.
@@ -117,11 +136,23 @@ export default function CompareLocations() {
       {error && <p className="text-red-600 mt-4">{error}</p>}
 
       {result && (
-        <div className="mt-10 flex justify-around items-center">
+        <div className="mt-10 flex justify-center items-center w-full gap-x-40">
+        <div className="flex flex-col items-center">
           {renderPieChart(result.zip1.score, result.zip1.zip, result.zip1.county, result.zip1.score > result.zip2.score)}
-          <span className="text-2xl font-bold text-black">vs</span>
-          {renderPieChart(result.zip2.score, result.zip2.zip, result.zip2.county, result.zip2.score > result.zip1.score)}
+          <div className="mt-4">
+            <h3 className="text-xl font-bold text-gray-800">Metrics for {result.zip1.zip}</h3>
+            {renderMetrics(result.zip1.metrics)}
+          </div>
         </div>
+        <span className="text-2xl font-bold text-black">vs</span>
+        <div className="flex flex-col items-center">
+          {renderPieChart(result.zip2.score, result.zip2.zip, result.zip2.county, result.zip2.score > result.zip1.score)}
+          <div className="mt-4">
+            <h3 className="text-xl font-bold text-gray-800">Metrics for {result.zip2.zip}</h3>
+            {renderMetrics(result.zip2.metrics)}
+          </div>
+        </div>
+      </div>
       )}
     </div>
   );
