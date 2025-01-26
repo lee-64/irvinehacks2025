@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect, useRef, useState } from 'react';
 
 const InteractiveMap = ({
@@ -10,6 +9,12 @@ const InteractiveMap = ({
   const mapInstanceRef = useRef(null);
   const markerRef = useRef(null);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+
+  // LA and Orange County bounds
+  const bounds = [
+    [33.5082, -118.9448], // Southwest corner (Orange County)
+    [34.8233, -117.6462]  // Northeast corner (LA County)
+  ];
 
   // Load Leaflet scripts
   useEffect(() => {
@@ -65,10 +70,17 @@ const InteractiveMap = ({
         setTimeout(() => {
           // Create new map instance
           if (!mapInstanceRef.current && mapRef.current) {
-            mapInstanceRef.current = window.L.map(mapRef.current).setView([latitude, longitude], 17);
+            mapInstanceRef.current = window.L.map(mapRef.current, {
+              maxBounds: bounds,  // Set maximum bounds
+              minZoom: 9,        // Set minimum zoom level
+              maxZoom: 18        // Set maximum zoom level
+            });
+
+            // Fit the map to LA and Orange County bounds
+            mapInstanceRef.current.fitBounds(bounds);
 
             window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
+              maxZoom: 18,
               attribution: '© OpenStreetMap contributors'
             }).addTo(mapInstanceRef.current);
 
@@ -147,24 +159,6 @@ const InteractiveMap = ({
       }
     };
   }, [latitude, longitude, desirability, isScriptLoaded]);
-
-  // Final cleanup on component unmount
-  useEffect(() => {
-    return () => {
-      try {
-        if (markerRef.current) {
-          markerRef.current.remove();
-          markerRef.current = null;
-        }
-        if (mapInstanceRef.current) {
-          mapInstanceRef.current.remove();
-          mapInstanceRef.current = null;
-        }
-      } catch (error) {
-        console.error('Error during final cleanup:', error);
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
