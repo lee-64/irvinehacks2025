@@ -23,7 +23,7 @@ For missing data points, adjust weights proportionally across other categories.
 
 Return format:
 {
-"desirability_score": float,
+"score": integer,
 "explanation": string,
 "confidence": float
 }
