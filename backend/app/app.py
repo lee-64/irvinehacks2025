@@ -135,6 +135,68 @@ def get_walk_metrics(addr, lat, lon):
     except:
         return None
 
+def get_health_metrics(lat, lon, hospital_data, max_distance_miles=20):
+    """
+    Fetch healthcare quality metrics for hospitals near a given location.
+    """
+    
+    try:
+        # Calculate distance to each hospital
+        hospital_data['distance'] = hospital_data.apply(
+            lambda row: geodesic(
+                (lat, lon),
+                (row['Latitude'], row['Longitude'])
+            ).miles,
+            axis=1
+        )
+        
+        # Filter hospitals within the distance threshold
+        nearby_hospitals = hospital_data[hospital_data['distance'] <= max_distance_miles]
+        if nearby_hospitals.empty:
+            return None
+
+        # Aggregate metrics for nearby hospitals
+        avg_adverse_events = nearby_hospitals['# of Adverse Events'].mean()
+        avg_risk_adjusted_rate = nearby_hospitals['Risk-adjusted Rate'].mean()
+
+        metrics = {
+            "avg_adverse_events": avg_adverse_events,
+            "avg_risk_adjusted_rate": avg_risk_adjusted_rate
+        }
+        return metrics
+    except Exception as e:
+        print(f"Error fetching hospital health metrics: {e}")
+        return None
+        
+def get_environmental_metrics(zip_code):
+    """
+    Fetch environmental metrics for a given ZIP code.
+    Reads air quality, water quality, and toxic substances data.
+    """
+    try:
+        # Load the dataset
+        dataset_path = "../data/environment/calenviroscreen-3.0-results-june-2018-update.csv"
+        env_data = pd.read_csv(dataset_path)
+
+        # Filter the data for the given ZIP code
+        zip_data = env_data[env_data['ZIP'] == int(zip_code)]
+        if zip_data.empty:
+            return None
+
+        # Extract relevant metrics
+        metrics = {
+            "ozone_level": zip_data['Ozone'].iloc[0],
+            "pm25_level": zip_data['PM2.5'].iloc[0],
+            "diesel_pm_level": zip_data['Diesel PM'].iloc[0],
+            "drinking_water_quality": zip_data['Drinking Water'].iloc[0],
+            "pesticides_level": zip_data['Pesticides'].iloc[0],
+            "tox_release": zip_data['Tox. Release'].iloc[0],
+        }
+        return metrics
+
+    except Exception as e:
+        print(f"Error fetching environmental metrics: {e}")
+        return None
 
 def get_system_context():
     """
@@ -211,4 +273,3 @@ def get_safety_metrics(city):
     except KeyError:
         print("City safety data not found")
         return None
-
