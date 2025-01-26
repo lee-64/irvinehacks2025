@@ -1,10 +1,13 @@
 'use client';
 
-import { useEffect, useState } from "react";
-
+import { useEffect, useState } from 'react';
+import InteractiveMap from '@/components/InteractiveMap';
+import MapSearch from '@/components/MapSearch';
 
 export default function Home() {
   const [scrollAmount, setScrollAmount] = useState(0);
+  const [score, setScore] = useState(0);
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -13,7 +16,6 @@ export default function Home() {
   }, []);
 
   const handleScroll = () => {
-    console.log("scrolling", window.scrollY, window.innerHeight / 2);
     setScrollAmount(window.scrollY);
   };
 
@@ -28,6 +30,35 @@ export default function Home() {
       return 1;
     }
   }
+
+  const handleMapSearch = async (mapSearch) => {
+    if (!mapSearch?.trim()) {
+        alert("Please enter a valid prompt.");
+        return;
+    }
+
+    console.log('searching:', mapSearch);
+
+    try {
+      const submitResponse = await fetch('/api/fetch_score', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({
+          query: mapSearch,
+          // config: configState
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const submitData = await submitResponse.json();
+      console.log('Submit response:', submitData);
+      setScore(submitData);
+    } catch (error) {
+      console.error("Error processing the search query:", error);
+    }
+  };
+
 
   return (
     <div className="sm:p-10">
@@ -105,10 +136,14 @@ export default function Home() {
         </div>
       </div>
     </div>
-    <div className="h-screen rounded-lg sm:p-20">
-      <div className="h-screen rounded-lg w-full bg-[#D6DBDF] sm:p-10">
-        <input type="text" placeholder="Search.." />
-      </div>
+    <div className="h-screen rounded-lg w-full sm:p-20">
+      <MapSearch
+        onSubmit={handleMapSearch}
+        placeholder="9955 Beverly Grove Dr."  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
+      />
+      <InteractiveMap
+        desirability={score}
+      />
     </div>
   </div>
   );
