@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const InteractiveMap = ({
   latitude = 34.070429,
   longitude =  -118.478919,
-  desirability = 75
+  desirability = 58
 }) => {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
