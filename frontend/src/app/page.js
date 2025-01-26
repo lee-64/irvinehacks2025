@@ -1,15 +1,17 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import InteractiveMap from '@/components/InteractiveMap';
 import MapSearch from '@/components/MapSearch';
 import ErrorAlert from '@/components/ErrorAlert';
 
+
 export default function Home() {
   const [scrollAmount, setScrollAmount] = useState(0);
   const [locData, setLocData] = useState(0);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [currentSet, setCurrentSet] = useState(0);
 
   const cards = [
@@ -47,13 +49,22 @@ export default function Home() {
       return;
     }
 
+    setLoading(true);
+    // setStatus(null);
+
     try {
       const submitResponse = await fetch('/api/fetch_location_data', {
         method: 'POST',
         credentials: 'include',
-        body: JSON.stringify({ query: mapSearch }),
-        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: mapSearch,
+          // config: configState
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
+
 
       if (!submitResponse.ok) {
         const errorData = await submitResponse.json();
@@ -67,8 +78,12 @@ export default function Home() {
 
       const submitData = await submitResponse.json();
       setLocData(submitData);
+
     } catch (error) {
-      setError('An error occurred while processing your request. Please try again.');
+      setError("An error occurred while processing your request. Please try again.");
+      // setStatus("failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -155,7 +170,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-  
+
       <div className="h-screen rounded-lg w-full sm:p-20">
         <MapSearch onSubmit={handleMapSearch} placeholder="9955 Beverly Grove Dr." />
         <ErrorAlert message={error} />
