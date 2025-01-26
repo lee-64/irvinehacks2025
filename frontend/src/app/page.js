@@ -221,14 +221,32 @@ export default function Home() {
           />
 
           {status === "success" && !loading && (
-              <div className="grid grid-cols-2 grid-rows-3 gap-4 mx-auto">
-                <p className="col-span-2">{locData.explanation}</p>
-                {renderPieChart(locData.safety_score, "Safety", locData.safety_score > 50)}
-                {renderPieChart(locData.environmental_score, "Pollution", locData.environmental_score > 50)}
-                {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
-                {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
-                {renderPieChart(locData.walk_score, "Transportation", locData.walk_score > 50)}
-                {renderPieChart(locData.housing_score, "Housing", locData.housing_score > 50)}
+              <div className="flex flex-col items-center justify-center gap-4 mt-8">
+                <br/><br/><br/><p className="col-span-2">{locData.explanation}</p><br/><br/>
+                <div className="h-80" style={{display: 'flex'}}>
+                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
+                    {renderPieChart(locData.safety_score, "Safety", locData.safety_score > 50)}
+                  </div>
+                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
+                    {renderPieChart(locData.environmental_score, "Pollution", locData.environmental_score > 50)}
+                  </div>
+                </div>
+                <div className="h-80" style={{display: 'flex'}}>
+                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
+                    {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
+                  </div>
+                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
+                    {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
+                  </div>
+                </div>
+                <div className="h-80" style={{display: 'flex'}}>
+                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
+                    {renderPieChart(locData.walk_score, "Transportation", locData.walk_score > 50)}
+                  </div>
+                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
+                    {renderPieChart(locData.housing_score, "Housing", locData.housing_score > 50)}
+                  </div>
+                </div>
               </div>
           )}
         </div>
