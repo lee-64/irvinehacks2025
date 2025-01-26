@@ -42,7 +42,7 @@ Score Calculation:
 4. Round to nearest integer
 
 Explanation:
-Please write 2-3 sentences as an explanation for your score.
+Please write 4-6 sentences as an explanation for your score.
 
 Confidence Calculation:
 - Start at 1.0
@@ -50,10 +50,14 @@ Confidence Calculation:
 - Reduce by 0.05 for each questionable data point
 - Minimum confidence: 0.3
 
+Tourism Highlights:
+Give 3 NEARBY (as local and specific to that area as possible) tourism highlights or fun and unique things to do.
+
 
 Return format: {
     "score": integer (out of 100),
     "explanation": string,
+    "tourism_highlights": string,
     "confidence": float,
     "safety_score": integer (out of 100),
     "environmental_score": integer (out of 100),
