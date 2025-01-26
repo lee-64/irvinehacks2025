@@ -28,7 +28,6 @@ async def fetch_location_data(request: Request):
 
         df = pd.read_csv('../data/ZipData.csv')
         match_data = find_zipcode_match(query, df)
-        print(match_data)
         if match_data is None:
             # This is a client error - the query didn't match any locations
             raise HTTPException(status_code=400, detail="Address/location not found, please try again")
@@ -36,11 +35,17 @@ async def fetch_location_data(request: Request):
         try:
             safety_data = get_safety_metrics(match_data['city'])
             walk_data = get_walk_metrics(query, match_data['latitude'], match_data['longitude'])
+            environmental_data = get_environmental_metrics(int(match_data['zipcode']))
+            school_data = get_edu_match(int(match_data['zipcode']))
+            health_data = get_health_metrics(match_data['latitude'], match_data['longitude'])
 
             combined_data = {
                 'match_data': match_data,
                 'safety_data': safety_data,
-                'walk_score': walk_data
+                'walk_score': walk_data,
+                'health_data': health_data,
+                'environmental_data': environmental_data,
+                'school_data': school_data
             }
 
             print(combined_data)
@@ -49,9 +54,9 @@ async def fetch_location_data(request: Request):
             location_data = {
                 'lat': match_data['query_latitude'],
                 'lon': match_data['query_longitude'],
-                'score': llm_response['score']
+                'score': llm_response['score'],
+                'explanation': llm_response['explanation'],
             }
-
 
             return location_data
 
@@ -117,8 +122,6 @@ def find_zipcode_match(query, df, max_distance_miles=10):
                 'longitude': closest['Longitude'],
                 'distance_miles': round(closest['distance']),
                 'record_id': closest['RecordID'],
-                'median_household_income': closest['MedianHouseholdIncome'],
-                'per_capita_income': closest['PerCapitaIncome'],
                 'median_home_value': closest['MedianHomeValue'],
                 'query_latitude': query_lat,  # For map visualization purposes
                 'query_longitude': query_lon
@@ -150,11 +153,14 @@ def get_walk_metrics(addr, lat, lon):
     except:
         return None
 
-def get_health_metrics(lat, lon, hospital_data, max_distance_miles=20):
+
+def get_health_metrics(lat, lon, max_distance_miles=20):
     """
     Fetch healthcare quality metrics for hospitals near a given location.
     """
-    
+
+    hospital_data = pd.read_csv('../data/health/csv_hospitalreports1722_odp.csv', encoding='ISO-8859-1')
+
     try:
         # Calculate distance to each hospital
         hospital_data['distance'] = hospital_data.apply(
@@ -164,7 +170,7 @@ def get_health_metrics(lat, lon, hospital_data, max_distance_miles=20):
             ).miles,
             axis=1
         )
-        
+
         # Filter hospitals within the distance threshold
         nearby_hospitals = hospital_data[hospital_data['distance'] <= max_distance_miles]
         if nearby_hospitals.empty:
@@ -182,7 +188,8 @@ def get_health_metrics(lat, lon, hospital_data, max_distance_miles=20):
     except Exception as e:
         print(f"Error fetching hospital health metrics: {e}")
         return None
-        
+
+
 def get_environmental_metrics(zip_code):
     """
     Fetch environmental metrics for a given ZIP code.
@@ -212,6 +219,7 @@ def get_environmental_metrics(zip_code):
     except Exception as e:
         print(f"Error fetching environmental metrics: {e}")
         return None
+
 
 def get_system_context():
     """
@@ -298,8 +306,9 @@ def get_safety_metrics(city):
         print("City safety data not found")
         return None
 
+
 def get_edu_match(zip):
-    edu = pd.read_csv('data/education/schools_data.csv')
+    edu = pd.read_csv('../data/education/schools_data.csv')
     try:
         if zip in edu['Zip Code'].values:
             edu_zip = edu[edu['Zip Code'] == zip]

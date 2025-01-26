@@ -106,11 +106,11 @@ export default function Home() {
           </button>
         </Link>
       </div>
-  
+
       <div className="h-20 row-start-1 items-center">
         <img src="/zipscopeimage.png" className="h-full" />
       </div>
-  
+
       <div className="h-screen flex items-center flex-row">
         <div className="basis-1/2 text-center sm:p-10">
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-snug">
@@ -130,7 +130,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-  
+
       {/* Scrolling Opacity Element */}
       <div
         className="py-16 rounded-lg"
@@ -139,44 +139,68 @@ export default function Home() {
         }}
       >
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl font-bold">Based on the following metrics...</h1>
-  
-          <div className="flex items-center justify-center mt-12">
-            <button
-              onClick={handlePrev}
-              className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
-            >
-              &lt;
-            </button>
-  
-            <div className="grid md:grid-cols-3 gap-8">
-              {cards.slice(currentSet, currentSet + 3).map((card, index) => (
-                <div
-                  key={index}
-                  className="bg-blue-900 rounded-2xl shadow-lg p-6 flex flex-col items-center w-60 h-60"
-                >
-                  <img src={card.imgSrc} alt={card.title} className="w-auto h-24 rounded-2xl" />
-                  <h2 className="font-semibold text-lg mt-4 text-white">{card.title}</h2>
-                  <p className="mt-2 text-sm text-center text-white">{card.description}</p>
-                </div>
-              ))}
-            </div>
-  
-            <button
-              onClick={handleNext}
-              className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
-            >
-              &gt;
-            </button>
-          </div>
-        </div>
+  <h1 className="text-4xl font-bold">Based on the following metrics...</h1>
+
+  <div className="flex items-center justify-center mt-12">
+    <button
+      onClick={handlePrev}
+      className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
+    >
+      &lt;
+    </button>
+
+    <div className="grid md:grid-cols-3 gap-8">
+  {cards.slice(currentSet, currentSet + 3).map((card, index) => (
+    <div
+      key={index}
+      className="bg-blue-900 rounded-2xl shadow-lg p-6 flex flex-col items-center w-60 h-60"
+    >
+      <img src={card.imgSrc} alt={card.title} className="w-auto h-24 rounded-2xl" />
+      <h2 className="font-semibold text-lg mt-4 text-white">{card.title}</h2>
+      <p className="mt-2 text-sm text-center text-white">{card.description}</p>
+    </div>
+  ))}
+</div>
+
+      <button
+        onClick={handleNext}
+        className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
+      >
+        &gt;
+      </button>
+    </div>
+    </div>
+  </div>
+
+      <div className="min-h-screen sm:p-20 flex justify-center rounded-lg border-4 border-black">
+      <div className="flex-col border-yellow-300 border  sm:mr-20" style={{ marginRight: '90px' }}>
+        <MapSearch
+            onSubmit={handleMapSearch}
+            placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
+        />
+        <ErrorAlert
+            message={error}
+        />
+
+        <p>{locData.explanation}</p>
       </div>
 
-      <div className="h-screen rounded-lg w-full sm:p-20">
-        <MapSearch onSubmit={handleMapSearch} placeholder="9955 Beverly Grove Dr." />
-        <ErrorAlert message={error} />
-        <InteractiveMap latitude={locData.lat} longitude={locData.lon} desirability={locData.score} />
+      <div className="z-10">
+        <InteractiveMap
+            latitude={locData.lat}
+            longitude={locData.lon}
+            desirability={locData.score}
+        />
       </div>
+      {loading && (
+          <div className="absolute inset-0 z-20 bg-white/70 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full"/>
+              <p className="text-lg font-medium text-gray-700">Loading map data...</p>
+            </div>
+          </div>
+        )}
+    </div>
     </div>
   );
 }
