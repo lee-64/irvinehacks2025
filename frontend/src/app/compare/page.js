@@ -47,7 +47,7 @@ export default function CompareLocations() {
     }
   };
 
-  const renderPieChart = (score, zip, label, isHigher) => {
+  const renderPieChart = (score, zip, county, isHigher) => {
     const data = [
       { name: 'Score', value: score },
       { name: 'Remaining', value: 10 - score },
@@ -58,7 +58,7 @@ export default function CompareLocations() {
     return (
       <div className="flex flex-col items-center">
         <h2 className={`text-xl font-bold ${isHigher ? 'text-green-600' : 'text-red-600'}`}>
-          {zip}, {label}
+          {zip}, {county}, CA
         </h2>
         <ResponsiveContainer width={200} height={200}>
           <PieChart>
@@ -118,9 +118,9 @@ export default function CompareLocations() {
 
       {result && (
         <div className="mt-10 flex justify-around items-center">
-          {renderPieChart(result.zip1.score, result.zip1.zip, 'Los Angeles, CA', result.zip1.score > result.zip2.score)}
+          {renderPieChart(result.zip1.score, result.zip1.zip, result.zip1.county, result.zip1.score > result.zip2.score)}
           <span className="text-2xl font-bold text-black">vs</span>
-          {renderPieChart(result.zip2.score, result.zip2.zip, 'Orange County, CA', result.zip2.score > result.zip1.score)}
+          {renderPieChart(result.zip2.score, result.zip2.zip, result.zip2.county, result.zip2.score > result.zip1.score)}
         </div>
       )}
     </div>

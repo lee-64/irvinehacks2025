@@ -30,6 +30,7 @@ export async function POST(request) {
 
   const validHeaders = {
     zip: 'zip',
+    county: 'california county',
     pm25Pctl: 'pm2.5 pctl',
     dieselPctl: 'diesel pm pctl',
     pollutionScore: 'pollution burden score',
@@ -40,45 +41,23 @@ export async function POST(request) {
     trafficPctl: 'traffic pctl',
   };
 
-  // Map headers to indexes (case-insensitive matching)
+  // Map headers to indexes
   const headerIndexes = Object.fromEntries(
     Object.entries(validHeaders).map(([key, header]) => {
-      const index = headers.findIndex((h) => h === header.toLowerCase());
-      console.log(`Mapping header: "${header}" -> Index: ${index}`);
+      const index = headers.findIndex((h) => h.includes(header));
       if (index === -1) {
-        throw new Error(
-          `Required header "${header}" not found in dataset. Available headers: ${headers}`
-        );
+        throw new Error(`Required header "${header}" not found in dataset.`);
       }
       return [key, index];
     })
   );
 
-  // Clean and normalize rows
-const data = rows.slice(1).filter((row) => row.length === headers.length).map((row) => {
-  return row.map((value) => value.trim());
-});
-console.log("First 5 Data Rows (Cleaned):", data.slice(0, 5));
+  // Helper function to find a row by ZIP code
+  const findRowByZip = (zip) => {
+    const sanitizedZip = zip.trim().slice(0, 5); // Extract 5 digits
+    return rows.find((row) => row[headerIndexes.zip] === sanitizedZip);
+  };
 
-// Helper function to find a row by ZIP code
-const findRowByZip = (zip) => 
-  {
-  const sanitizedZip = zip.trim().slice(0, 5); // Extract 5 digits
-  console.log("Searching for ZIP:", sanitizedZip);
-
-  // Match the ZIP code in the data
-  const match = data.find((row) => row[headerIndexes.zip]?.toString().trim() === sanitizedZip);
-  
-  if (!match) {
-    console.log("No match found for ZIP:", sanitizedZip);
-  } else {
-    console.log("Match found for ZIP:", match);
-  }
-
-  return match;
-};
-
-  // Calculate score for a ZIP code
   const calculateScore = (row) => {
     const weights = {
       pollution: 0.3,
@@ -91,7 +70,8 @@ const findRowByZip = (zip) =>
       100 -
       (
         parseFloat(row[headerIndexes.pm25Pctl] || 0) +
-        parseFloat(row[headerIndexes.dieselPctl] || 0)) /
+        parseFloat(row[headerIndexes.dieselPctl] || 0)
+      ) /
         2;
 
     const healthScore = 100 - parseFloat(row[headerIndexes.asthmaPctl] || 0);
@@ -117,12 +97,8 @@ const findRowByZip = (zip) =>
   const zip2Row = findRowByZip(zip2);
 
   if (!zip1Row || !zip2Row) {
-    const availableZips = data.map((row) => row[headerIndexes.zip]);
     return NextResponse.json(
-      {
-        error: `One or both ZIP codes not found.`,
-        availableZips: availableZips.slice(0, 10), // Include a sample for debugging
-      },
+      { error: `One or both ZIP codes not found.` },
       { status: 400 }
     );
   }
@@ -130,11 +106,9 @@ const findRowByZip = (zip) =>
   const zip1Score = calculateScore(zip1Row);
   const zip2Score = calculateScore(zip2Row);
 
-  console.log("Calculated Scores:", { zip1Score, zip2Score });
-
   return NextResponse.json({
-    zip1: { zip: zip1, score: zip1Score },
-    zip2: { zip: zip2, score: zip2Score },
+    zip1: { zip: zip1, county: zip1Row[headerIndexes.county], score: zip1Score },
+    zip2: { zip: zip2, county: zip2Row[headerIndexes.county], score: zip2Score },
     comparison:
       zip1Score > zip2Score
         ? `${zip1} is rated higher with a score of ${zip1Score}/10`
