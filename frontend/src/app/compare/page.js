@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function CompareLocations() {
   const [zip1, setZip1] = useState('');
@@ -12,7 +13,6 @@ export default function CompareLocations() {
 
   const handleCompare = async () => {
     setError(null); // Reset error
-    setResult(null);
 
     const sanitizedZip1 = zip1.trim().slice(0, 5);
     const sanitizedZip2 = zip2.trim().slice(0, 5);
@@ -29,18 +29,60 @@ export default function CompareLocations() {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const data = await response.json();
-      console.log('API Response:', data); // Debugging
-
       if (!response.ok) {
-        setError(data.error || 'An error occurred.');
+        const errorData = await response.json();
+        setError(
+          errorData.error ||
+            'Failed to fetch location scores. Please try again.' +
+              (errorData.availableZips
+                ? ` Available ZIPs: ${errorData.availableZips.join(', ')}` : '')
+        );
         return;
       }
 
+      const data = await response.json();
       setResult(data);
     } catch (err) {
-      setError('An error occurred while fetching data.');
+      setError('An error occurred. Please try again.');
     }
+  };
+
+  const renderPieChart = (score, zip, label, isHigher) => {
+    const data = [
+      { name: 'Score', value: score },
+      { name: 'Remaining', value: 10 - score },
+    ];
+
+    const COLORS = isHigher ? ['#4CAF50', '#E0E0E0'] : ['#F44336', '#E0E0E0'];
+
+    return (
+      <div className="flex flex-col items-center">
+        <h2 className={`text-xl font-bold ${isHigher ? 'text-green-600' : 'text-red-600'}`}>
+          {zip}, {label}
+        </h2>
+        <ResponsiveContainer width={200} height={200}>
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={50}
+              outerRadius={80}
+              paddingAngle={5}
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+        <p className={`text-xl font-semibold ${isHigher ? 'text-green-600' : 'text-red-600'}`}>
+          {score}/10
+        </p>
+      </div>
+    );
   };
 
   return (
@@ -75,15 +117,10 @@ export default function CompareLocations() {
       {error && <p className="text-red-600 mt-4">{error}</p>}
 
       {result && (
-        <div className="mt-10 text-center">
-          <h2 className="text-2xl font-bold">Comparison Results</h2>
-          <p className="mt-4">
-            ZIP Code {result.zip1.zip}: {result.zip1.score}/10
-          </p>
-          <p className="mt-2">
-            ZIP Code {result.zip2.zip}: {result.zip2.score}/10
-          </p>
-          <p className="mt-4 font-semibold">{result.comparison}</p>
+        <div className="mt-10 flex justify-around items-center">
+          {renderPieChart(result.zip1.score, result.zip1.zip, 'Los Angeles, CA', result.zip1.score > result.zip2.score)}
+          <span className="text-2xl font-bold text-black">vs</span>
+          {renderPieChart(result.zip2.score, result.zip2.zip, 'Orange County, CA', result.zip2.score > result.zip1.score)}
         </div>
       )}
     </div>
