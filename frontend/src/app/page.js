@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import InteractiveMap from '@/components/InteractiveMap';
 import MapSearch from '@/components/MapSearch';
