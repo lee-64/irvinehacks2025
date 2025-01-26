@@ -58,6 +58,7 @@ async def fetch_location_data(request: Request):
                 'lon': match_data['query_longitude'],
                 'overall_score': llm_response['score'],
                 'explanation': llm_response['explanation'],
+                'tourism_highlights': llm_response['tourism_highlights'],
                 'safety_score': llm_response['safety_score'],
                 'environmental_score': llm_response['environmental_score'],
                 'health_score': llm_response['health_score'],
