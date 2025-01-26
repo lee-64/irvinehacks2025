@@ -1,153 +1,343 @@
-﻿Zip Code,School Name,CSR Rank,School Type
-92656,Aliso Niguel High,10,High School
-92656,Aliso Viejo Middle,10,Middle School
-92656,Canyon Vista Elementary,9,Elementary School
-92677,Community Roots Academy,9,Elementary School
-92656,Don Juan Avila Elementary,9,Elementary School
-92656,Don Juan Avila Middle,10,Middle School
-92656,Journey,7,Elementary School
-92656,Oak Grove Elementary,10,Elementary School
-92656,Wood Canyon Elementary,7,Elementary School
-91214,Abraham Lincoln Elementary,1,Elementary School
-92801,Adelaide Price Elementary,5,Elementary School
-92802,Alexander J. Stoddard Elementary,6,Elementary School
-92806,Benito Juarez Elementary,5,Elementary School
-92805,Benjamin Franklin Elementary,4,Elementary School
-92802,Betsy Ross Elementary,2,Elementary School
-92804,Clara Barton Elementary,4,Elementary School
-92801,GOALS Academy,4,Elementary School
-92801,Horace Mann Elementary,1,Elementary School
-92806,James M. Guinn Elementary,2,Elementary School
-92804,James Madison Elementary,4,Elementary School
-92801,John Marshall Elementary,2,Elementary School
-92802,Loara Elementary,3,Elementary School
-92801,Melbourne A. Gauer Elementary,3,Elementary School
-92805,Olive Street Elementary,2,Elementary School
-92805,Orange Grove Elementary,2,Elementary School
-92802,Palm Lane Elementary,1,Elementary School
-92801,Patrick Henry Elementary,1,Elementary School
-92805,Paul Revere Elementary,2,Elementary School
-92802,Ponderosa Elementary,2,Elementary School
-92806,Sunkist Elementary,2,Elementary School
-92805,Theodore Roosevelt Elementary,3,Elementary School
-92805,Thomas Edison Elementary,2,Elementary School
-92805,Thomas Jefferson Elementary,3,Elementary School
-92801,Westmont Elementary,4,Elementary School
-92805,Anaheim High,5,High School
-92802,Ball Junior High,2,Middle School
-92801,Brookhurst Junior High,4,Middle School
-92804,Dale Junior High,4,Middle School
-92804,Gilbert High (Continuation),2,High School
-92806,Katella High,5,High School
-92804,Loara High,6,High School
-92804,Magnolia High,5,High School
-92804,Orangeview Junior High,5,Middle School
-92804,Polaris High (Alternative),4,High School
-92801,Savanna High,5,High School
-92806,South Junior High,2,Middle School
-92805,Sycamore Junior High,2,Middle School
-92804,Western High,7,High School
-92801,Centralia Elementary,7,Elementary School
-92804,Danbrook Elementary,7,Elementary School
-92804,Dr. Albert Schweitzer,8,Elementary School
-92801,Dr. Peter Marshall,7,Elementary School
-92804,Esther L. Walter,6,Elementary School
-92804,Jonas E. Salk,7,Elementary School
-92801,Juliette Low,7,Elementary School
-92804,Lord Baden-Powell,6,Elementary School
-92804,Mattie Lou Maxwell,6,Elementary School
-92804,Walt Disney,8,Elementary School
-92807,Anaheim Hills Elementary,9,Elementary School
-92807,Canyon High,9,High School
-92807,Canyon Rim Elementary,8,Elementary School
-92807,Crescent Elementary,10,Elementary School
-92808,El Rancho Charter,9,Middle School
-92807,Imperial Elementary,9,Elementary School
-92807,Nohl Canyon Elementary,10,Elementary School
-92807,Orange Unified Pre-K SDC,none,Elementary School
-92808,Running Springs Elementary,9,Elementary School
-92807,Esperanza High,9,High School
-92807,Glenview Elementary,7,Elementary School
-92806,Rio Vista Elementary,5,Elementary School
-92807,Woodsboro Elementary,9,Elementary School
-90703,Cerritos Elementary,7,Elementary School
-92804,Hansen Elementary,6,Elementary School
-92804,Twila Reid Elementary,6,Elementary School
-92821,Arovista Elementary,8,Elementary School
-92821,Brea Canyon High (Continuation),3,High School
-92821,Brea Country Hills Elementary,9,Elementary School
-92821,Brea Junior High,9,Middle School
-92821,Brea-Olinda High,9,High School
-92821,Laurel Elementary,7,Elementary School
-92821,Mariposa Elementary,9,Elementary School
-91768,International Polytechnic High,10,High School
-91766,Alcott Elementary,3,Elementary School
-91706,Holland Middle,3,Middle School
-91706,Kenmore Elementary,7,Elementary School
-91706,Margaret Heath Elementary,2,Elementary School
-91706,North Park Continuation High,1,High School
-91706,Olive Middle,4,Middle School
-91706,Pleasant View Elementary,3,Elementary School
-91706,Santa Fe Elementary,8,Elementary School
-91706,Sierra Vista High,6,High School
-91706,Sierra Vista Junior High,5,Middle School
-91706,Tracy Elementary,4,Elementary School
-91706,Vineland Elementary,4,Elementary School
-91789,Walnut Elementary,5,Elementary School
-90201,Bell Senior High,6,High School
-90201,Corona Avenue Elementary,4,Elementary School
-90201,Magnolia Science Academy Bell,5,Middle School
-90201,Martha Escutia Primary Center,none,Elementary School
-90201,Nueva Vista Elementary,5,Elementary School
-90201,Orchard Academies 2B,3,Middle School
-90201,Orchard Academies 2C,3,Middle School
-90201,Woodlawn Avenue Elementary,2,Elementary School
-90201,Bell Gardens Elementary,2,Elementary School
-90201,Bell Gardens High,5,High School
-90201,Bell Gardens Intermediate,3,Middle School
-90032,Cesar E. Chavez Elementary,2,Elementary School
-90706,Las Flores Home Education Independent Study Academy,7,Elementary School
-90029,Ramona Elementary,4,Elementary School
-90706,Somerset Continuation High,3,High School
-91504,Thomas Jefferson Elementary,4,Elementary School
-90405,Washington Elementary,2,Elementary School
-90211,"Albert Einstein Academy for Letters, Arts & Sciences - Odyssey",7,Elementary School
-90212,Beverly Hills High,10,High School
-90212,Beverly Vista Elementary,9,Elementary School
-90210,El Rodeo Elementary,10,Elementary School
-90210,Hawthorne Elementary,10,Elementary School
-90211,Horace Mann Elementary,9,Elementary School
-90212,Moreno High,none,High School
-91505,Bret Harte Elementary,7,Elementary School
-91506,Burbank Unified Independent Learning Academy,none,Elementary School
-91502,Burbank High,8,High School
-91506,Burroughs High,9,High School
-91506,David Starr Jordan Middle,7,Middle School
-91504,George Washington Elementary,8,Elementary School
-91501,Joaquin Miller Elementary,9,Elementary School
-90044,John Muir Middle,8,Middle School
-91505,Luther Burbank Middle,7,Middle School
-93940,Monterey High,2,High School
-91506,Options for Youth-Burbank Charter,4,Elementary School
-91505,Providencia Elementary,7,Elementary School
-90746,Ralph Bunche Elementary,2,Elementary School
-90747,California Academy of Mathematics and Science,10,High School
-90745,Academies of Education and Empowerment at Carson High,8,High School
-90745,Academy of Medical Arts at Carson High,10,High School
-90746,Ambler Avenue Elementary,5,Elementary School
-90745,Andrew Carnegie Middle,2,Middle School
-90746,Annalee Avenue Elementary,1,Elementary School
-90745,Bonita Street Elementary,5,Elementary School
-90746,Broadacres Avenue Elementary,5,Elementary School
-90745,Caroldale Learning Community,7,Elementary School
-90745,Carson Senior High,5,High School
-90745,Carson Street Elementary,7,Elementary School
-90745,Catskill Avenue Elementary,4,Elementary School
-90745,Del Amo Elementary,4,Elementary School
-90745,Dolores Street Elementary,4,Elementary School
-90810,Dominguez Elementary,5,Elementary School
-90745,Eagle Tree Continuation,1,High School
-90746,Glenn Hammond Curtiss Middle,2,Middle School
-90746,Leapwood Avenue Elementary,2,Elementary School
-90746,Magnolia Science Academy 3,7,Middle School
-90745,Stephen M. White Middle,5,Middle School
+﻿Zip Code,School Name,CSR Rank
+92656,Aliso Niguel High,10
+92805,Anaheim High,5
+92804,Gilbert High (Continuation),2
+92806,Katella High,5
+92804,Loara High,6
+92804,Magnolia High,5
+92804,Polaris High (Alternative),4
+92801,Savanna High,5
+92804,Western High,7
+92807,Canyon High,9
+92807,Esperanza High,9
+92821,Brea Canyon High (Continuation),3
+92821,Brea-Olinda High,9
+91706,North Park Continuation High,1
+91706,Sierra Vista High,6
+90201,Bell Senior High,6
+90201,Bell Gardens High,5
+90706,Somerset Continuation High,3
+90212,Beverly Hills High,10
+90212,Moreno High,none
+91502,Burbank High,8
+91506,Burroughs High,9
+93940,Monterey High,2
+90747,California Academy of Mathematics and Science,10
+90745,Academies of Education and Empowerment at Carson High,8
+90745,Academy of Medical Arts at Carson High,10
+90745,Carson Senior High,5
+90745,Eagle Tree Continuation,1
+90621,Buena Park High,6
+92627,Back Bay High,1
+92626,Costa Mesa High,5
+92627,Early College High,9
+92627,Estancia High,7
+92703,Magnolia Science Academy Santa Ana,10
+90630,Cypress High,9
+90630,Oxford Academy,10
+92629,Dana Hills High,8
+92708,Los Amigos High,7
+92708,Fountain Valley High,10
+92708,Continuation Valley Vista High,3
+92831,Ladera Vista Junior High School of the Arts,6
+92832,Fullerton Union High,7
+92831,Alternative La Sierra High,2
+92831,Continuation La Vista High,3
+92833,Sunny Hills High,10
+92831,Troy High,10
+92844,Bolsa Grande High,9
+92840,Garden Grove High,8
+92841,Marie L. Hare High,2
+92845,Pacifica High,9
+92841,Rancho Alamitos High,8
+92843,Santiago High,7
+92647,Coast High,9
+92627,Edison High,10
+92646,Huntington Beach High,10
+92649,Marina High,9
+92647,Ocean View High,6
+92606,Creekside High,3
+92604,Irvine High,10
+92620,Northwood High,10
+92618,Portola High,10
+92612,University High,10
+92604,Woodbridge High,10
+92602,Arnold O. Beckman High,10
+90631,La Habra High,8
+90631,Sonora High,9
+90632,John F. Kennedy High,9
+92651,Laguna Beach High,10
+92653,Laguna Hills High,9
+92630,El Toro High,9
+92688,Tesoro High,10
+90720,Los Alamitos High,10
+92692,Capistrano Valley High,9
+92691,Oxford Preparatory Academy - South Orange County,10
+93307,Alternative Mira Monte High,7
+92691,Mission Viejo High,8
+92691,Silverado High,3
+92691,Trabuco Hills High,10
+92660,Corona del Mar High,9
+92663,Newport Harbor High,9
+92869,El Modena High,8
+92869,McPherson Magnet,8
+92867,Orange High,5
+92870,El Dorado High,9
+92870,Valencia High,9
+92873,San Clemente High,9
+90249,Junipero Serra High,1
+92675,San Juan Hills High,9
+92705,Century High,4
+92707,Cesar E. Chavez High,2
+92706,Middle College High,10
+92701,OCSA,10
+92701,Orange County Educational Arts Academy,6
+92707,Saddleback High,5
+92701,Santa Ana High,4
+92704,Segerstrom High,8
+92704,Valley High,4
+92705,Foothill High,9
+92780,Tustin High,9
+92861,Villa Park High,8
+92683,La Quinta High,10
+92863,Westminster High,9
+92886,Yorba Linda High,10
+91801,Alhambra High ,8
+91801,Mark Keppel High,10
+91006,Arcadia High,10
+91331,Arleta High,7
+91702,Azusa High,6
+91706,Baldwin Park High,7
+91706,Sierra Vista High,6
+90201,Bell Senior High,6
+90201,Bell Gardens High,5
+90706,Bellflower High,5
+91706,Baldwin Park High,7
+90706,Bellflower High,5
+91302,Calabasas High,9
+91303,Canoga Park Senior High,6
+92807,Canyon High,9
+90747,California Academy of Mathematics and Science,10
+90745,Academies of Education and Empowerment at Carson High,8
+90745,Academy of Medical Arts at Carson High,10
+90745,Carson Senior High,5
+90703,Cerritos High,10
+90703,Gretchen Whitney High,10
+90703,Richard Gahr High,8
+90703,Wilbur Tracy High,2
+91311,Chatsworth Charter High,7
+91311,William Tell Aggeler Opportunity High,1
+91744,William Workman High,6
+91711,Claremont High,9
+90255,Continuation San Antonio High,3
+90222,Centennial High,2
+90222,Cesar Chavez Continuation High,1
+90221,Compton High,3
+90221,Dominguez High,3
+91722,Gladstone High,6
+91724,Charter Oak High,7
+91723,Covina High,7
+91722,Continuation Fairvalley High,1
+91722,Northview High,6
+90230,Culver City High,9
+90230,Culver Park High,2
+91765,Diamond Bar High,9
+90241,Downey High,8
+90241,Warren High,8
+91010,Duarte High,7
+91732,Arroyo High,8
+91731,El Monte High,6
+91732,Fernando R. Ledesma Continuation High,2
+91732,Mountain View High,7
+90245,El Segundo High,9
+90248,Gardena Senior High,4
+91206,Allan F. Daily High,3
+91205,Glendale High,7
+91202,Herbert Hoover High,8
+91741,Glendora High,10
+91740,Whitcomb Continuation High,3
+91344,Granada Hills Charter High,10
+91344,John F. Kennedy High,6
+91745,Glen A. Wilson High,10
+91745,Los Altos High,7
+91745,Puente Hills High,4
+90710,Nathaniel Narbonne Senior High,6
+90250,Hawthorne High,4
+90245,Da Vinci Communications High,8
+90028,Helen Bernstein High,4
+90028,STEM Academy at Bernstein High,8
+90255,Alliance Collins Family College-Ready High,8
+90255,Huntington Park Senior High,4
+90255,Linda Esperanza Marquez High A Huntington Park Institute of Applied Medicine,6
+90255,Linda Esperanza Marquez High B LIBRA Academy,8
+90255,Linda Esperanza Marquez High C School of Social Justice,7
+90305,Animo Inglewood Charter High,9
+90301,Inglewood High,2
+90303,Morningside High School,3
+90304,Animo Leadership High,9
+91011,La Canada High,10
+91214,Anderson W. Clark Magnet High,10
+91214,Crescenta Valley High,10
+90638,La Mirada High,8
+91746,Bassett Senior High,6
+91746,Nueva Vista Continuation High,1
+91744,La Puente High,6
+91744,Nogales High,7
+91744,Continuation Santana High,2
+91750,Bonita High,10
+90715,Artesia High,8
+90713,Mayfair High,7
+90713,Lakewood High,7
+90712,Buena Vista High,1
+93535,Antelope Valley High,4
+93535,Desert Winds Continuation High,2
+93535,Eastside High,4
+93536,Lancaster High,5
+93536,Students On Academic Rise SOAR High,10
+90260,Lawndale High,5
+90260,Leuzinger High,5
+90260,R. K. Lloyde High,1
+93543,Littlerock High,5
+90810,Cabrillo High,5
+90813,Educational Partnership High,3
+90808,"Ernest S. McBride, Sr. High",8
+90805,Jordan High,4
+90815,Millikan High,7
+90813,Polytechnic High,7
+90815,Reid High,2
+90804,Wilson High,6
+90031,Abraham Lincoln Senior High,7
+90003,Academy for Multilingual Arts and Science at Mervyn M. Dymally High,3
+90034,Alexander Hamilton Senior High,7
+90059,Alliance Cindy and Bill Simon Technology Academy High,5
+90015,Alliance Dr. Olga Mohan High,10
+90003,Alliance Judy Ivie Burton Technology Academy High,8
+90065,Alliance Leichtman-Levine Family Foundation Environmental Science High,8
+90063,Alliance Morgan McKinzie High,8
+90043,Alliance Renee and Meyer Luskin Academy High,5
+90031,Alliance Susan and Eric Smidt Technology High,7
+90026,Alliance Ted K. Tajima High,9
+90065,Alliance Tennenbaum Family Technology High,6
+90007,Animo Jackie Robinson High,7
+90011,Animo Ralph Bunche Charter High,7
+90026,Belmont Senior High,5
+90042,Benjamin Franklin Senior High,9
+90023,Boyle Heights STEM High,6
+90026,Camino Nuevo High,9
+90021,Central High,2
+90026,Downtown Business High,10
+90011,Dr. Maya Angelou Community High,3
+90041,Eagle Rock High,8
+90046,Fairfax Senior High,7
+90011,Frida Kahlo High,3
+90047,George Washington Preparatory High,3
+90026,Opportunity Harold McAlister High,3
+90028,Hollywood Senior High,8
+90063,Humanitas Academy of Art and Technology at Esteban E. Torres High No. 4,4
+90022,James A. Garfield Senior High,8
+90003,John C. Fremont Senior High,4
+90027,John Marshall Senior High,8
+90059,King/Drew Medical Magnet High,9
+90019,Los Angeles Senior High,4
+90037,Manual Arts Senior High,3
+90033,"Math, Science, & Technology Magnet Academy at Roosevelt High",9
+90047,Middle College High,8
+90063,Social Justice Leadership Academy at Esteban E. Torres High No. 5,6
+90016,Susan Miller Dorsey Senior High,3
+90033,Theodore Roosevelt Senior High,4
+90011,Thomas Jefferson Senior High,4
+90002,Thomas Riley High,2
+90025,University Senior High,8
+90071,USC Hybrid High,9
+90066,Venice Senior High,8
+90007,West Adams Preparatory High,4
+90032,Woodrow Wilson Senior High,5
+90262,Lynwood High,5
+90262,Marco Antonio Firebaugh High,5
+92084,Vista High,1
+90265,Malibu High,10
+90266,Mira Costa High,10
+90270,Maywood Academy High,6
+91016,Canyon Oaks High,4
+91016,Monrovia High,10
+90640,Schurr High,6
+90640,Continuation Vail High,1
+91321,William S. Hart High,9
+91343,James Monroe High,5
+91601,East Valley Senior High,3
+91601,North Hollywood Senior High,8
+91325,Northridge Academy High,7
+90650,John H. Glenn High,4
+90650,Norwalk High,5
+93551,Highland High,6
+93550,Palmdale High,4
+93552,Pete William J. Knight High,5
+93550,R. Rex Parris High,3
+90274,Palos Verdes High,8
+91402,Cal Burke High,2
+91402,Panorama High,5
+91106,Blair High,6
+91103,John Muir High,4
+91107,Pasadena High,7
+91107,Continuation Rose City High,1
+90660,El Rancho High,8
+91768,International Polytechnic High,10
+91766,Diamond Ranch High,8
+91768,Ganesha High,4
+91766,Garey High,5
+91767,Continuation Park West High,1
+91767,Pomona High,4
+93536,Quartz Hill High,7
+90277,Continuation Redondo Shores High,3
+90277,Redondo Union High,8
+91335,John R. Wooden High,2
+91335,Reseda Senior High,7
+90274,Continuation Rancho del Mar High,4
+90274,Palos Verdes Peninsula High,10
+91770,Rosemead High,9
+91748,John A. Rowland High,9
+91773,San Dimas High,7
+91340,San Fernando Senior High,6
+91776,San Gabriel High,8
+91776,Del Mar High,3
+91776,Gabrielino High,10
+91108,San Marino High,10
+90731,Port of Los Angeles High,9
+90731,San Pedro Senior High,7
+91350,Golden Valley High,8
+91351,La Mesa Junior High,7
+91321,Alternative Learning Post High,9
+91355,Mission View Public,3
+91354,Rio Norte Junior High,9
+90405,Santa Fe High,8
+90405,Continuation Olympic High,4
+90405,Santa Monica High,8
+91350,Saugus High,10
+91733,South El Monte High,8
+90280,South Gate Senior High,6
+91030,South Pasadena Senior High,10
+91352,Sun Valley High,4
+91780,Temple City High,10
+90504,North High,9
+90505,South High,10
+90501,Torrance High,9
+90503,West High,10
+91042,Verdugo Hills Senior High,7
+92870,Valencia High,10
+91401,Ulysses S. Grant Senior High,4
+91411,Van Nuys Senior High,8
+91789,Walnut High,10
+91791,South Hills High,8
+91791,Continuation Coronado High,3
+91790,Edgewood High,9
+91791,West Covina High,9
+90638,Continuation El Camino High,1
+90604,California High,7
+90605,Continuation Frontier High,2
+90605,La Serna High,9
+90606,Pioneer High,7
+90605,Alternative Sierra Vista High,4
+90601,Whittier High,6
+90744,Avalon High,2
+90744,Phineas Banning Senior High,6
+91364,Taft Charter High,7
