@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import InteractiveMap from '@/components/InteractiveMap';
 import MapSearch from '@/components/MapSearch';
 import ErrorAlert from '@/components/ErrorAlert';
-import {Cell, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
-
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 export default function Home() {
   const [scrollAmount, setScrollAmount] = useState(0);
@@ -17,17 +16,25 @@ export default function Home() {
   const [currentSet, setCurrentSet] = useState(0);
 
   const cards = [
-    { imgSrc: '/cops.png', title: 'Crime Rates and Safety', description: 'No Thieves' },
-    { imgSrc: '/lebronhouse.png', title: 'Housing Prices', description: 'Average home prices in the area.' },
-    { imgSrc: '/ihs.png', title: 'Public Education Quality', description: 'Ratings of high schools in the area.' },
+    { imgSrc: '/cops.png', title: 'Safety', description: 'No Thieves' },
+    { imgSrc: '/lebronhouse.png', title: 'Housing', description: 'Average home prices in the area.' },
+    { imgSrc: '/ihs.png', title: 'Education', description: 'Ratings of high schools in the area.' },
     { imgSrc: '/transport.png', title: 'Transportation', description: 'Ease of access to public transit and roads.' },
     { imgSrc: '/enviornment.png', title: 'Environment', description: 'Air and water quality in the area.' },
-    { imgSrc: '/healthcare.png', title: 'Health', description: 'Availability of hospitals and healthcare services.' },
+    { imgSrc: '/healthcare.png', title: 'Healthcare', description: 'Availability of hospitals and healthcare services.' },
   ];
+
+  const rotateCarousel = () => {
+    setCurrentSet((prevSet) => (prevSet + 1) % cards.length);
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const interval = setInterval(rotateCarousel, 3000); // Rotate every 3 seconds
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
   }, []);
 
   const handleScroll = () => {
@@ -45,7 +52,7 @@ export default function Home() {
   }
 
   const handleMapSearch = async (mapSearch) => {
-    setError(null); // Clear any previous errors
+    setError(null);
     if (!mapSearch?.trim()) {
       alert('Please enter a valid prompt.');
       return;
@@ -58,14 +65,9 @@ export default function Home() {
       const submitResponse = await fetch('/api/fetch_location_data', {
         method: 'POST',
         credentials: 'include',
-        body: JSON.stringify({
-          query: mapSearch
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify({ query: mapSearch }),
+        headers: { 'Content-Type': 'application/json' },
       });
-
 
       if (!submitResponse.ok) {
         const errorData = await submitResponse.json();
@@ -80,7 +82,6 @@ export default function Home() {
       const submitData = await submitResponse.json();
       setLocData(submitData);
       setStatus("success");
-
     } catch (error) {
       setError("An error occurred while processing your request. Please try again.");
       setStatus("failed");
@@ -88,15 +89,6 @@ export default function Home() {
       setLoading(false);
     }
   };
-
-  const handleNext = () => {
-    if (currentSet < cards.length - 3) setCurrentSet(currentSet + 1);
-  };
-
-  const handlePrev = () => {
-    if (currentSet > 0) setCurrentSet(currentSet - 1);
-  };
-
 
   const renderPieChart = (score, title, isHigher) => {
     const data = [
@@ -107,36 +99,35 @@ export default function Home() {
     const COLORS = isHigher ? ['#4CAF50', '#E0E0E0'] : ['#F44336', '#E0E0E0'];
 
     return (
-        <div className="flex flex-col items-center">
-          <h2 className={`text-xl font-bold ${isHigher ? 'text-green-600' : 'text-red-600'}`}>
-            {title}
-          </h2>
-          <ResponsiveContainer width={100} height={100}>
-            <PieChart>
-              <Pie
-                  data={data}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={25}
-                  outerRadius={40}
-                  paddingAngle={5}
-                  dataKey="value"
-              >
-                {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index]}/>
-                ))}
-              </Pie>
-              <Tooltip/>
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+      <div className="flex flex-col items-center">
+        <h2 className={`text-xl font-bold ${isHigher ? 'text-green-600' : 'text-red-600'}`}>
+          {title}
+        </h2>
+        <ResponsiveContainer width={100} height={100}>
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={25}
+              outerRadius={40}
+              paddingAngle={5}
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     );
   };
 
   return (
-      <div className="sm:p-10">
-        {/* Add the Compare Locations button here */}
-        <div className="absolute top-4 right-4">
+    <div className="sm:p-10">
+      <div className="absolute top-4 right-4">
         <Link href="/compare">
           <button className="bg-blue-600 text-white py-2 px-4 rounded-lg shadow">
             Compare Locations
@@ -162,114 +153,110 @@ export default function Home() {
           </p>
         </div>
         <div className="basis-1/2 text-center flex justify-center items-center w-full">
-          <div className="h-96 w-96 rounded-lg ">
+          <div className="h-96 w-96 rounded-lg">
             <img src="/skyline.png" className="h-auto rounded-lg" />
           </div>
         </div>
       </div>
 
-      {/* Scrolling Opacity Element */}
       <div
-        className="py-16 rounded-lg"
+        className="py-16 bg-gradient-to-r from-gray-100 via-white to-gray-100"
         style={{
           opacity: opacity(scrollAmount),
         }}
       >
         <div className="max-w-6xl mx-auto text-center">
-  <h1 className="text-4xl font-bold">Based on the following metrics...</h1>
-
-  <div className="flex items-center justify-center mt-12">
-    <button
-      onClick={handlePrev}
-      className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
-    >
-      &lt;
-    </button>
-
-    <div className="grid md:grid-cols-3 gap-8">
-  {cards.slice(currentSet, currentSet + 3).map((card, index) => (
-    <div
-      key={index}
-      className="bg-blue-900 rounded-2xl shadow-lg p-6 flex flex-col items-center w-60 h-60"
-    >
-      <img src={card.imgSrc} alt={card.title} className="w-auto h-24 rounded-2xl" />
-      <h2 className="font-semibold text-lg mt-4 text-white">{card.title}</h2>
-      <p className="mt-2 text-sm text-center text-white">{card.description}</p>
-    </div>
-  ))}
-</div>
-
-      <button
-        onClick={handleNext}
-        className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
-      >
-        &gt;
-      </button>
-    </div>
-    </div>
-  </div>
-
-    <div className="min-h-screen" style={{display: 'flex'}}>
-      <div className="min-h-screen" style={{flex: '50%'}}>
-        <div className="min-h-screen w-full sm:mr-20" style={{ marginRight: '90px' }}>
-          <MapSearch
-              onSubmit={handleMapSearch}
-              placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
-          />
-          <ErrorAlert
-              message={error}
-          />
-
-          {status === "success" && !loading && (
-              <div className="flex flex-col items-center justify-center gap-4 mt-8">
-                <br/><br/><br/><p className="col-span-2">{locData.explanation}</p><br/><br/>
-                <div className="h-80" style={{display: 'flex'}}>
-                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.safety_score, "Safety", locData.safety_score > 50)}
-                  </div>
-                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.environmental_score, "Pollution", locData.environmental_score > 50)}
-                  </div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-8">Based on the following metrics...</h1>
+          <div className="flex items-center justify-center space-x-6">
+            {[cards[currentSet], cards[(currentSet + 1) % cards.length], cards[(currentSet + 2) % cards.length]].map(
+              (card, index) => (
+                <div
+  key={index}
+  className="bg-white rounded-xl shadow-lg p-4 w-48 h-48 transform transition-transform duration-300 hover:scale-105"
+>
+                  <img src={card.imgSrc} alt={card.title} className="w-full h-28 object-cover rounded-lg mb-4" />
+                  <h2 className="text-xl font-semibold text-gray-700">{card.title}</h2>
+                  <p className="mt-2 text-gray-500">{card.description}</p>
                 </div>
-                <div className="h-80" style={{display: 'flex'}}>
-                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
-                  </div>
-                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
-                  </div>
-                </div>
-                <div className="h-80" style={{display: 'flex'}}>
-                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.walk_score, "Transportation", locData.walk_score > 50)}
-                  </div>
-                  <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.housing_score, "Housing", locData.housing_score > 50)}
-                  </div>
-                </div>
-              </div>
-          )}
+              )
+            )}
+          </div>
+          <div className="flex justify-center mt-6 space-x-2">
+            {cards.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 w-2 rounded-full ${
+                  index === currentSet ? 'bg-blue-600' : 'bg-gray-300'
+                }`}
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
-      <div className="column flex-1" style={{flex: '50%'}}>
-        <div className="min-h-screen w-full">
-          <InteractiveMap
+
+      <div className="min-h-screen" style={{ display: 'flex' }}>
+        <div className="min-h-screen" style={{ flex: '50%' }}>
+          <div className="min-h-screen w-full sm:mr-20">
+            <MapSearch
+              onSubmit={handleMapSearch}
+              placeholder="568 N Tigertail Rd, Los Angeles"
+            />
+            <ErrorAlert message={error} />
+
+            {status === "success" && !loading && (
+              <div className="grid grid-cols-2 grid-rows-3 gap-4 mx-auto">
+                <p className="col-span-2">{locData.explanation}</p>
+                {renderPieChart(locData.safety_score, "Safety", locData.safety_score > 50)}
+                {renderPieChart(locData.environmental_score, "Pollution", locData.environmental_score > 50)}
+                {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
+                {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
+                {renderPieChart(locData.walk_score, "Transportation", locData.walk_score > 50)}
+                {renderPieChart(locData.housing_score, "Housing", locData.housing_score > 50)}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="column flex-1" style={{ flex: '50%' }}>
+          <div className="min-h-screen w-full">
+            <InteractiveMap
               latitude={locData.lat}
               longitude={locData.lon}
               desirability={locData.overall_score}
-          />
-        </div>
-      </div>
-      {loading && (
-          <div className="absolute inset-0 z-20 bg-white/70 flex items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-              <div className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full"/>
-              <p className="text-lg font-medium text-gray-700">Loading map data...</p>
-            </div>
+            />
           </div>
+        </div>
+        {loading && (
+          <div className="flex items-center justify-center space-x-6">
+          {cards.map((card, index) => {
+            const isMiddle = index === currentSet;
+            const isLeft = (index === (currentSet - 1 + cards.length) % cards.length);
+            const isRight = (index === (currentSet + 1) % cards.length);
+        
+            return (
+              <div
+                key={index}
+                className={`bg-white rounded-xl shadow-lg p-8 w-48 h-48 transform transition-transform duration-300 ${
+                  isMiddle ? "opacity-100 scale-100" :
+                  isLeft || isRight ? "opacity-50 scale-90" :
+                  "opacity-0 scale-75"
+                }`}
+                style={{
+                  transition: "transform 0.3s ease, opacity 0.3s ease",
+                }}
+              >
+                <img
+                  src={card.imgSrc}
+                  alt={card.title}
+                  className="w-full h-20 object-cover rounded-lg mb-4"
+                />
+                <h2 className="text-lg font-semibold text-gray-700">{card.title}</h2>
+                <p className="mt-2 text-gray-500">{card.description}</p>
+              </div>
+            );
+          })}
+        </div>
         )}
-    </div>
-
+      </div>
     </div>
   );
 }
