@@ -1,19 +1,21 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import InteractiveMap from '@/components/InteractiveMap';
 import MapSearch from '@/components/MapSearch';
 import ErrorAlert from '@/components/ErrorAlert';
 
+
 export default function Home() {
   const [scrollAmount, setScrollAmount] = useState(0);
   const [locData, setLocData] = useState(0);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -40,7 +42,8 @@ export default function Home() {
         return;
     }
 
-    console.log('searching:', mapSearch);
+    setLoading(true);
+    // setStatus(null);
 
     try {
       const submitResponse = await fetch('/api/fetch_location_data', {
@@ -67,11 +70,13 @@ export default function Home() {
       }
 
       const submitData = await submitResponse.json();
-      console.log('Submit response:', submitData);
       setLocData(submitData);
+
     } catch (error) {
-      console.error("Error processing the search query:", error);
       setError("An error occurred while processing your request. Please try again.");
+      // setStatus("failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -91,7 +96,7 @@ export default function Home() {
           </h1>
           <p className="text-blue-600 text-lg font-semibold mt-4 inline-block">Explore ZipScope</p>
           <p className="text-gray-600 mt-4">
-            Providing travelers and new home seekers insight into the best neighborhoods and cities to visit. We provide a 
+            Providing travelers and new home seekers insight into the best neighborhoods and cities to visit. We provide a
             comprehensive summary of the best places to visit and live in the United States.
           </p>
         </div>
@@ -158,20 +163,33 @@ export default function Home() {
         </div>
       </div>
     </div>
+
     <div className="h-screen rounded-lg w-full sm:p-20">
       <MapSearch
-        onSubmit={handleMapSearch}
-        placeholder="9955 Beverly Grove Dr."  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
+          onSubmit={handleMapSearch}
+          placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
       />
       <ErrorAlert
           message={error}
       />
-      <InteractiveMap
-        latitude={locData.lat}
-        longitude={locData.lon}
-        desirability={locData.score}
-      />
+      <div className="relative h-[500px]">
+        <div className="absolute inset-0 z-10">
+          <InteractiveMap
+              latitude={locData.lat}
+              longitude={locData.lon}
+              desirability={locData.score}
+          />
+        </div>
+        {loading && (
+            <div className="absolute inset-0 z-20 bg-white/70 flex items-center justify-center">
+              <div className="flex flex-col items-center gap-4">
+                <div className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full"/>
+                <p className="text-lg font-medium text-gray-700">Loading map data...</p>
+              </div>
+            </div>
+        )}
+      </div>
     </div>
-  </div>
+    </div>
   );
 }

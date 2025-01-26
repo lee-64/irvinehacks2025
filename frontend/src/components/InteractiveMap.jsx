@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const InteractiveMap = ({
-  latitude = 34.0204,
-  longitude = -118.2861,
+  latitude = 34.070429,
+  longitude =  -118.478919,
   desirability = 75
 }) => {
   const mapRef = useRef(null);
@@ -12,8 +12,8 @@ const InteractiveMap = ({
 
   // LA and Orange County bounds
   const bounds = [
-    [33.5082, -118.9448], // Southwest corner (Orange County)
-    [34.8233, -117.6462]  // Northeast corner (LA County)
+    [34.212378, -118.551213], // Northwest corner (LA County)
+    [33.355899, -117.568698]  // Southeast corner (Orange County)
   ];
 
   // Load Leaflet scripts
@@ -76,8 +76,8 @@ const InteractiveMap = ({
               maxZoom: 18        // Set maximum zoom level
             });
 
-            // Fit the map to LA and Orange County bounds
-            mapInstanceRef.current.fitBounds(bounds);
+            // Set initial view
+            mapInstanceRef.current.setView([latitude, longitude], 16);
 
             window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 18,
