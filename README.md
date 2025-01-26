@@ -22,4 +22,8 @@ pip install -r requirements.txt
 # create a file called .env in backend/ with the following API keys: 
 WALK_SCORE_API_KEY=...
 GROQ_API_KEY=...
+
+cd app
+
+uvicorn app:app --reload
 ```
