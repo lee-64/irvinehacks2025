@@ -191,7 +191,7 @@ export default function Home() {
           <InteractiveMap
               latitude={locData.lat}
               longitude={locData.lon}
-              desirability={locData.score}
+              desirability={locData.overall_score}
           />
         </div>
       </div>
