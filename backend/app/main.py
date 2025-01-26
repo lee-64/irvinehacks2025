@@ -1,3 +1,7 @@
+"""
+DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED
+"""
+
 import os
 import requests
 from urllib.parse import quote
@@ -103,6 +107,7 @@ def get_system_context():
     except FileNotFoundError:
         print('Warning: system_context.txt not found')
         return ''
+
 
 def generate_llm_score(data):
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
