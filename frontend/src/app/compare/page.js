@@ -103,7 +103,14 @@ export default function CompareLocations() {
   };
   return (
     <div className="h-screen p-10">
-      <Link href="/" className="absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded-lg shadow">
+      <Link
+        href="/"
+        onClick={(e) => {
+          e.preventDefault();
+          window.location.href = "/"; // Redirect and refresh
+        }}
+        className="absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded-lg shadow"
+      >
         Back
       </Link>
       <h1 className="text-4xl font-bold text-center text-gray-900">Compare Locations</h1>
