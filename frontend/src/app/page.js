@@ -11,46 +11,18 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [currentSet, setCurrentSet] = useState(0);
 
-  const cardSets = [
-    [
-      {
-        imgSrc: '/cops.png',
-        title: 'Crime Rates and Safety',
-        description: 'No Thieves'
-      },
-      {
-        imgSrc: '/lebronhouse.png',
-        title: 'Housing Prices',
-        description: 'Average home prices in the area.'
-      },
-      {
-        imgSrc: '/ihs.png',
-        title: 'Public Education Quality',
-        description: 'Ratings of high schools in the area.'
-      }
-    ],
-    [
-      {
-        imgSrc: '/transport.png',
-        title: 'Transportation',
-        description: 'Ease of access to public transit and roads.'
-      },
-      {
-        imgSrc: '/enviornment.png',
-        title: 'Environment',
-        description: 'Air and water quality in the area.'
-      },
-      {
-        imgSrc: '/healthcare.png',
-        title: 'Health',
-        description: 'Availability of hospitals and healthcare services.'
-      }
-    ]
+  const cards = [
+    { imgSrc: '/cops.png', title: 'Crime Rates and Safety', description: 'No Thieves' },
+    { imgSrc: '/lebronhouse.png', title: 'Housing Prices', description: 'Average home prices in the area.' },
+    { imgSrc: '/ihs.png', title: 'Public Education Quality', description: 'Ratings of high schools in the area.' },
+    { imgSrc: '/transport.png', title: 'Transportation', description: 'Ease of access to public transit and roads.' },
+    { imgSrc: '/enviornment.png', title: 'Environment', description: 'Air and water quality in the area.' },
+    { imgSrc: '/healthcare.png', title: 'Health', description: 'Availability of hospitals and healthcare services.' },
   ];
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleScroll = () => {
@@ -70,49 +42,41 @@ export default function Home() {
   const handleMapSearch = async (mapSearch) => {
     setError(null); // Clear any previous errors
     if (!mapSearch?.trim()) {
-      alert("Please enter a valid prompt.");
+      alert('Please enter a valid prompt.');
       return;
     }
-
-    console.log('searching:', mapSearch);
 
     try {
       const submitResponse = await fetch('/api/fetch_location_data', {
         method: 'POST',
         credentials: 'include',
-        body: JSON.stringify({
-          query: mapSearch
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify({ query: mapSearch }),
+        headers: { 'Content-Type': 'application/json' },
       });
 
       if (!submitResponse.ok) {
         const errorData = await submitResponse.json();
-        if (submitResponse.status === 400) {
-          setError("Address/location not found, please try again");
-        } else {
-          setError("An error occurred while processing your request. Please try again.");
-        }
+        setError(
+          submitResponse.status === 400
+            ? 'Address/location not found, please try again'
+            : 'An error occurred while processing your request. Please try again.'
+        );
         return;
       }
 
       const submitData = await submitResponse.json();
-      console.log('Submit response:', submitData);
       setLocData(submitData);
     } catch (error) {
-      console.error("Error processing the search query:", error);
-      setError("An error occurred while processing your request. Please try again.");
+      setError('An error occurred while processing your request. Please try again.');
     }
   };
 
   const handleNext = () => {
-    setCurrentSet((currentSet + 1) % cardSets.length);
+    if (currentSet < cards.length - 3) setCurrentSet(currentSet + 1);
   };
 
   const handlePrev = () => {
-    setCurrentSet((currentSet - 1 + cardSets.length) % cardSets.length);
+    if (currentSet > 0) setCurrentSet(currentSet - 1);
   };
 
   return (
@@ -130,7 +94,7 @@ export default function Home() {
           </h1>
           <p className="text-blue-600 text-lg font-semibold mt-4 inline-block">Explore ZipScope</p>
           <p className="text-gray-600 mt-4">
-            Providing travelers and new home seekers insight into the best neighborhoods and cities to visit. We provide a 
+            Providing travelers and new home seekers insight into the best neighborhoods and cities to visit. We provide a
             comprehensive summary of the best places to visit and live in the United States.
           </p>
         </div>
@@ -142,60 +106,50 @@ export default function Home() {
       </div>
 
       {/* Scrolling Opacity Element */}
-      <div className="py-16 rounded-lg" style={{
-        opacity: opacity(scrollAmount)
-      }}>
+      <div
+        className="py-16 rounded-lg"
+        style={{
+          opacity: opacity(scrollAmount),
+        }}
+      >
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl font-bold">
-            Based on the following metrics...
-          </h1>
+  <h1 className="text-4xl font-bold">Based on the following metrics...</h1>
 
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            {cardSets[currentSet].map((card, index) => (
-              <div key={index} className="bg-[#D7DBDD] rounded-2xl shadow-lg p-6 flex flex-col items-center">
-                <img
-                  src={card.imgSrc}
-                  alt={card.title}
-                  className="w-auto h-auto rounded-2xl"
-                />
-                <h2 className="font-semibold text-lg mb-4">
-                  <br /> {card.title}
-                </h2>
-                <p className="mt-2 text-sm">{card.description}</p>
-              </div>
-            ))}
-          </div>
+  <div className="flex items-center justify-center mt-12">
+    <button
+      onClick={handlePrev}
+      className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
+    >
+      &lt;
+    </button>
 
-          <div className="flex justify-center items-center mt-8">
-            <button
-              onClick={handlePrev}
-              className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
-            >
-              &lt;
-            </button>
-            <button
-              onClick={handleNext}
-              className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
-            >
-              &gt;
-            </button>
-          </div>
-        </div>
+    <div className="grid md:grid-cols-3 gap-8">
+  {cards.slice(currentSet, currentSet + 3).map((card, index) => (
+    <div
+      key={index}
+      className="bg-blue-900 rounded-2xl shadow-lg p-6 flex flex-col items-center w-60 h-60"
+    >
+      <img src={card.imgSrc} alt={card.title} className="w-auto h-24 rounded-2xl" />
+      <h2 className="font-semibold text-lg mt-4 text-white">{card.title}</h2>
+      <p className="mt-2 text-sm text-center text-white">{card.description}</p>
+    </div>
+  ))}
+</div>
+
+    <button
+      onClick={handleNext}
+      className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
+    >
+      &gt;
+    </button>
+  </div>
+</div>
       </div>
 
       <div className="h-screen rounded-lg w-full sm:p-20">
-        <MapSearch
-          onSubmit={handleMapSearch}
-          placeholder="9955 Beverly Grove Dr."
-        />
-        <ErrorAlert
-          message={error}
-        />
-        <InteractiveMap
-          latitude={locData.lat}
-          longitude={locData.lon}
-          desirability={locData.score}
-        />
+        <MapSearch onSubmit={handleMapSearch} placeholder="9955 Beverly Grove Dr." />
+        <ErrorAlert message={error} />
+        <InteractiveMap latitude={locData.lat} longitude={locData.lon} desirability={locData.score} />
       </div>
     </div>
   );
