@@ -9,11 +9,47 @@ export default function Home() {
   const [scrollAmount, setScrollAmount] = useState(0);
   const [locData, setLocData] = useState(0);
   const [error, setError] = useState(null);
+  const [currentSet, setCurrentSet] = useState(0);
 
+  const cardSets = [
+    [
+      {
+        imgSrc: '/cops.png',
+        title: 'Crime Rates and Safety',
+        description: 'No Thieves'
+      },
+      {
+        imgSrc: '/lebronhouse.png',
+        title: 'Housing Prices',
+        description: 'Average home prices in the area.'
+      },
+      {
+        imgSrc: '/ihs.png',
+        title: 'Public Education Quality',
+        description: 'Ratings of high schools in the area.'
+      }
+    ],
+    [
+      {
+        imgSrc: '/transport.png',
+        title: 'Transportation',
+        description: 'Ease of access to public transit and roads.'
+      },
+      {
+        imgSrc: '/enviornment.png',
+        title: 'Environment',
+        description: 'Air and water quality in the area.'
+      },
+      {
+        imgSrc: '/healthcare.png',
+        title: 'Health',
+        description: 'Availability of hospitals and healthcare services.'
+      }
+    ]
+  ];
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -21,14 +57,12 @@ export default function Home() {
     setScrollAmount(window.scrollY);
   };
 
-  function opacity(scrollAmt){
-    if (scrollAmt < window.innerHeight / 2){
+  function opacity(scrollAmt) {
+    if (scrollAmt < window.innerHeight / 2) {
       return 0;
-    }
-    else if (scrollAmt < window.innerHeight){
+    } else if (scrollAmt < window.innerHeight) {
       return (scrollAmt - window.innerHeight / 2) / (window.innerHeight / 2);
-    }
-    else{
+    } else {
       return 1;
     }
   }
@@ -36,8 +70,8 @@ export default function Home() {
   const handleMapSearch = async (mapSearch) => {
     setError(null); // Clear any previous errors
     if (!mapSearch?.trim()) {
-        alert("Please enter a valid prompt.");
-        return;
+      alert("Please enter a valid prompt.");
+      return;
     }
 
     console.log('searching:', mapSearch);
@@ -47,23 +81,21 @@ export default function Home() {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify({
-          query: mapSearch,
-          // config: configState
+          query: mapSearch
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       });
 
-
       if (!submitResponse.ok) {
-          const errorData = await submitResponse.json();
-          if (submitResponse.status === 400) {
-              setError("Address/location not found, please try again");
-          } else {
-              setError("An error occurred while processing your request. Please try again.");
-          }
-          return;
+        const errorData = await submitResponse.json();
+        if (submitResponse.status === 400) {
+          setError("Address/location not found, please try again");
+        } else {
+          setError("An error occurred while processing your request. Please try again.");
+        }
+        return;
       }
 
       const submitData = await submitResponse.json();
@@ -75,6 +107,13 @@ export default function Home() {
     }
   };
 
+  const handleNext = () => {
+    setCurrentSet((currentSet + 1) % cardSets.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentSet((currentSet - 1 + cardSets.length) % cardSets.length);
+  };
 
   return (
     <div className="sm:p-10">
@@ -97,7 +136,7 @@ export default function Home() {
         </div>
         <div className="basis-1/2 text-center flex justify-center items-center w-full">
           <div className="h-96 w-96 rounded-lg ">
-            <img src="/skyline.png" className="h-auto, rounded-lg" />
+            <img src="/skyline.png" className="h-auto rounded-lg" />
           </div>
         </div>
       </div>
@@ -106,72 +145,58 @@ export default function Home() {
       <div className="py-16 rounded-lg" style={{
         opacity: opacity(scrollAmount)
       }}>
-      <div className="max-w-6xl mx-auto text-center">
-        <h1 className="text-4xl font-bold">
-          Based on the following metrics...
-        </h1>
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-4xl font-bold">
+            Based on the following metrics...
+          </h1>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
-
-          {/* Crime Rates and Safety */}
-          <div className="bg-[#D7DBDD] rounded-2xl shadow-lg p-6 flex flex-col items-center">
-            <img
-              src="/cops.png"
-              alt="Police Cars"
-              className="w-auto h-auto rounded-2xl"
-            />
-            <h2 className="font-semibold text-lg mb-4">
-              <br /> Crime Rates and Safety
-            </h2>
-            <p className="mt-2 text-sm">No Thieves</p>
+          <div className="grid md:grid-cols-3 gap-8 mt-12">
+            {cardSets[currentSet].map((card, index) => (
+              <div key={index} className="bg-[#D7DBDD] rounded-2xl shadow-lg p-6 flex flex-col items-center">
+                <img
+                  src={card.imgSrc}
+                  alt={card.title}
+                  className="w-auto h-auto rounded-2xl"
+                />
+                <h2 className="font-semibold text-lg mb-4">
+                  <br /> {card.title}
+                </h2>
+                <p className="mt-2 text-sm">{card.description}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Housing Prices */}
-          <div className="bg-[#D7DBDD] rounded-2xl shadow-lg p-6 flex flex-col items-center">
-            <img
-              src="/lebronhouse.png"
-              alt="Lebron James's House"
-              className="w-auto h-auto rounded-2xl"
-            />
-            <h2 className="font-semibold text-lg mb-4">
-              <br /> Housing Prices
-            </h2>
-            <p className="mt-2 text-sm">
-              Average home prices in the area.
-            </p>
-          </div>
-
-          {/* Education Quality */}
-          <div className="bg-[#D7DBDD] rounded-2xl shadow-lg p-6 flex flex-col items-center">
-            <img
-              src="/ihs.png"
-              alt="Irvine High School"
-              className="w-auto h-auto rounded-2xl"
-            />
-            <h2 className="font-semibold text-lg mb-4">
-              <br /> Public Education Quality
-            </h2>
-            <p className="mt-2 text-sm">
-              Ratings of high schools in the area.
-            </p>
+          <div className="flex justify-center items-center mt-8">
+            <button
+              onClick={handlePrev}
+              className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
+            >
+              &lt;
+            </button>
+            <button
+              onClick={handleNext}
+              className="px-4 py-2 bg-gray-300 rounded-lg mx-2 shadow hover:bg-gray-400"
+            >
+              &gt;
+            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div className="h-screen rounded-lg w-full sm:p-20">
-      <MapSearch
-        onSubmit={handleMapSearch}
-        placeholder="9955 Beverly Grove Dr."  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
-      />
-      <ErrorAlert
+
+      <div className="h-screen rounded-lg w-full sm:p-20">
+        <MapSearch
+          onSubmit={handleMapSearch}
+          placeholder="9955 Beverly Grove Dr."
+        />
+        <ErrorAlert
           message={error}
-      />
-      <InteractiveMap
-        latitude={locData.lat}
-        longitude={locData.lon}
-        desirability={locData.score}
-      />
+        />
+        <InteractiveMap
+          latitude={locData.lat}
+          longitude={locData.lon}
+          desirability={locData.score}
+        />
+      </div>
     </div>
-  </div>
   );
 }
