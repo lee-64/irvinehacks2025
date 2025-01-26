@@ -92,7 +92,7 @@ export default function Home() {
       }}>
       <div className="max-w-6xl mx-auto text-center">
         <h1 className="text-4xl font-bold">
-          Based on These Metrics
+          Based on the following metrics...
         </h1>
 
         <div className="grid md:grid-cols-3 gap-8 mt-12">
