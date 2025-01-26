@@ -28,7 +28,23 @@ export default function Home() {
     setCurrentSet((prevSet) => (prevSet + 1) % cards.length);
   };
 
+  const [isOverscrolled, setIsOverscrolled] = useState(false);
+
   useEffect(() => {
+    const handleScroll = () => {
+      setScrollAmount(window.scrollY);
+
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const bottomPosition = document.documentElement.scrollHeight;
+      const isAtMaxScroll = scrollPosition >= bottomPosition;
+
+      if (isAtMaxScroll &&window.scrollY > 0) {
+        setIsOverscrolled(true);
+      } else {
+        setIsOverscrolled(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
     const interval = setInterval(rotateCarousel, 3000); // Rotate every 3 seconds
     return () => {
@@ -284,6 +300,27 @@ export default function Home() {
         </div>
         )}
       </div>
+      <div style = {{height: '500px', width: '100%', backgroundColor: 'white'}} > </div>
+        <div
+          style = {{
+          height: "50px",
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          opacity: isOverscrolled ? 1: 0,
+          transform: isOverscrolled ? "scale(1)": "scale(0.8)",
+          transition: "all 0.5s ease-in-out",
+          position: "fixed",
+          bottom: 150,
+          left: 0,
+          right: 0,
+          zIndex: 10
+          }}
+        >
+          < img src = "/sunshine.png" className = "fixed bottom-0 left-0 h-96 z-10 pointer-events-none"
+            />
+        </div>
     </div>
   );
 }
