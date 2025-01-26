@@ -52,7 +52,13 @@ Confidence Calculation:
 
 
 Return format: {
-    "score": integer,
+    "score": integer (out of 100),
     "explanation": string,
-    "confidence": float
+    "confidence": float,
+    "safety_score": integer (out of 100),
+    "environmental_score": integer (out of 100),
+    "health_score": integer (out of 100),
+    "school_score": integer (out of 100),
+    "walk_score": integer (out of 100),
+    "housing_score": integer (out of 100)
 }
