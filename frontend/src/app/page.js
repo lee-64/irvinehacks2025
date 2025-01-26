@@ -212,7 +212,9 @@ export default function Home() {
 
           {status === "success" && !loading && (
               <div className="flex flex-col items-center justify-center gap-4 mt-8">
-                <br/><br/><br/><p className="col-span-2">{locData.explanation}</p><br/><br/>
+                <div style={{width: '80%'}}>
+                  <br/><br/><br/><p className="col-span-2">{locData.explanation}</p><br/><br/>
+                </div>
                 <div className="h-80" style={{display: 'flex'}}>
                   <div className="w-full sm:mr-20" style={{flex: '50%'}}>
                     {renderPieChart(locData.safety_score, "Safety", locData.safety_score > 50)}
@@ -223,7 +225,7 @@ export default function Home() {
                 </div>
                 <div className="h-80" style={{display: 'flex'}}>
                   <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
+                    {renderPieChart(locData.health_score, "Health", locData.health_score > 50)}
                   </div>
                   <div className="w-full sm:mr-20" style={{flex: '50%'}}>
                     {renderPieChart(locData.school_score, "Education", locData.school_score > 50)}
