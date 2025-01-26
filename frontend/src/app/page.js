@@ -172,25 +172,28 @@ export default function Home() {
     </div>
   </div>
 
-    <div className="min-h-screen sm:p-20 flex justify-center rounded-lg border-4 border-black">
-      <div className="flex-col border-yellow-300 border  sm:mr-20" style={{ marginRight: '90px' }}>
-        <MapSearch
-            onSubmit={handleMapSearch}
-            placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
-        />
-        <ErrorAlert
-            message={error}
-        />
+    <div className="min-h-screen" style={{display: 'flex'}}>
+      <div className="min-h-screen" style={{flex: '50%'}}>
+        <div className="min-h-screen w-full border-yellow-300 border  sm:mr-20" style={{ marginRight: '90px' }}>
+          <MapSearch
+              onSubmit={handleMapSearch}
+              placeholder="568 N Tigertail Rd, Los Angeles"  // TODO animated alternating placeholders, eg "90089"..."Irvine"..."3651 Trousdale Pkwy, LA"...
+          />
+          <ErrorAlert
+              message={error}
+          />
 
-        <p>{locData.explanation}</p>
+          <p>{locData.explanation}</p>
+        </div>
       </div>
-
-      <div className="z-10">
-        <InteractiveMap
-            latitude={locData.lat}
-            longitude={locData.lon}
-            desirability={locData.overall_score}
-        />
+      <div class="column flex-1" style={{flex: '50%'}}>
+        <div className="min-h-screen w-full">
+          <InteractiveMap
+              latitude={locData.lat}
+              longitude={locData.lon}
+              desirability={locData.score}
+          />
+        </div>
       </div>
       {loading && (
           <div className="absolute inset-0 z-20 bg-white/70 flex items-center justify-center">
@@ -201,7 +204,6 @@ export default function Home() {
           </div>
         )}
     </div>
-
 
     </div>
   );
