@@ -297,3 +297,18 @@ def get_safety_metrics(city):
     except KeyError:
         print("City safety data not found")
         return None
+
+def get_edu_match(zip):
+    edu = pd.read_csv('data/education/schools_data.csv')
+    try:
+        if zip in edu['Zip Code'].values:
+            edu_zip = edu[edu['Zip Code'] == zip]
+            sum = 0
+            for row in edu_zip.iterrows():
+                if row[1]['CSR Rank'].isdigit():
+                    sum += int(row[1]['CSR Rank'])
+            return sum / len(edu_zip)
+
+    except KeyError:
+        print("Education quality data not found")
+        return None
