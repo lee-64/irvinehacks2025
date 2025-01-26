@@ -233,10 +233,10 @@ export default function Home() {
                 </div>
                 <div className="h-80" style={{display: 'flex'}}>
                   <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.health_score, "Health Accessibility", locData.health_score > 50)}
+                    {renderPieChart(locData.health_score, "Health", locData.health_score > 50)}
                   </div>
                   <div className="w-full sm:mr-20" style={{flex: '50%'}}>
-                    {renderPieChart(locData.school_score, "Education Opportunities", locData.school_score > 50)}
+                    {renderPieChart(locData.school_score, "Education", locData.school_score > 50)}
                   </div>
                 </div>
                 <div className="h-80" style={{display: 'flex'}}>
