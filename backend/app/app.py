@@ -45,17 +45,25 @@ async def fetch_location_data(request: Request):
                 'walk_score': walk_data,
                 'health_data': health_data,
                 'environmental_data': environmental_data,
-                'school_data': school_data
+                'school_data': school_data,
             }
 
             print(combined_data)
+
+            # TODO locData.overall_score
 
             llm_response = generate_llm_score(combined_data)
             location_data = {
                 'lat': match_data['query_latitude'],
                 'lon': match_data['query_longitude'],
-                'score': llm_response['score'],
+                'overall_score': llm_response['score'],
                 'explanation': llm_response['explanation'],
+                'safety_score': llm_response['safety_score'],
+                'environmental_score': llm_response['environmental_score'],
+                'health_score': llm_response['health_score'],
+                'school_score': llm_response['school_score'],
+                'walk_score': llm_response['walk_score'],
+                'housing_score': llm_response['housing_score'],
             }
 
             return location_data

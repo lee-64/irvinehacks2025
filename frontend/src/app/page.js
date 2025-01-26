@@ -172,7 +172,7 @@ export default function Home() {
     </div>
   </div>
 
-      <div className="min-h-screen sm:p-20 flex justify-center rounded-lg border-4 border-black">
+    <div className="min-h-screen sm:p-20 flex justify-center rounded-lg border-4 border-black">
       <div className="flex-col border-yellow-300 border  sm:mr-20" style={{ marginRight: '90px' }}>
         <MapSearch
             onSubmit={handleMapSearch}
@@ -189,7 +189,7 @@ export default function Home() {
         <InteractiveMap
             latitude={locData.lat}
             longitude={locData.lon}
-            desirability={locData.score}
+            desirability={locData.overall_score}
         />
       </div>
       {loading && (
@@ -201,6 +201,8 @@ export default function Home() {
           </div>
         )}
     </div>
+
+
     </div>
   );
 }
